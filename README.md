@@ -1,5 +1,5 @@
 # UMaine Capstone 2023-2024
-Inventory Management System Group
+## Inventory Management System Group
 
 Team Members
 
