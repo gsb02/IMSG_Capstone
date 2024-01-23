@@ -8,5 +8,5 @@ const pool = mySql.createPool({
     password: KEYS.DB_PASSWORD,
 });
 
-const promisePool = pool.promise();
+const promisePool = pool.promise(); 
 export default promisePool;
