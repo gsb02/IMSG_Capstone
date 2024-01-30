@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: IMSGCOS397
+      MYSQL_DATABASE: inventorytracker
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - db_data:/var/lib/mysql
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3000
+      DB_HOST: localhost
+      DB_USER: root
+      DB_NAME: inventorytracker
+      DB_PASSWORD: IMSGCOS397
+    ports:
+      - "3000:3000"
+    #command: ["node ./api_src/index.js" ]
+    depends_on:
+      - db
+volumes:
+  db_data:
