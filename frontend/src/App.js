@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route,} from "react-router-dom";
-import Equip from "./pages/Equip";
+import Equipment from "./pages/equipment";
 import Teams from "./pages/teams";
 import "./style.css"
 
@@ -17,7 +17,7 @@ function App() {
       </ul>
       <BrowserRouter>
         <Routes>
-          <Route path = "/Equip" element={<Equip/>}/>
+          <Route path = "/equip" element={<Equipment/>}/>
           <Route path="/teams" element={<Teams/>}/>
         </Routes>
       </BrowserRouter>
