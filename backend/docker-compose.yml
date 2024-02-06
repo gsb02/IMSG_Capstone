@@ -12,19 +12,30 @@ services:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - db_data:/var/lib/mysql
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: node:lts-alpine3.19  # Use the official Node.js 14 image
+    working_dir: /app
     environment:
       PORT: 3000
-      DB_HOST: localhost
+      DB_HOST: db
       DB_USER: root
       DB_NAME: inventorytracker
       DB_PASSWORD: IMSGCOS397
     ports:
       - "3000:3000"
-    #command: ["node ./api_src/index.js" ]
-    depends_on:
-      - db
+    volumes:
+      - ./api_src:/app
+      - ./node_modules:/app/node_modules
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+    command: ["node", "index.js"]
+
+  frontend:
+    image: node:lts-alpine3.19  # Use the official Node.js 14 image
+    working_dir: /app
+    ports:
+      - "3001:3000"
+    volumes:
+      - ../frontend:/app
+    command: sh -c "npm install && npm run build && npm start"
 volumes:
   db_data:
