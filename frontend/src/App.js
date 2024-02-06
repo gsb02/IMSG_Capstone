@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route,} from "react-router-dom";
 import Equipment from "./pages/equipment";
 import Teams from "./pages/teams";
+import Players from "./pages/players";
 import "./style.css"
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path = "/equip" element={<Equipment/>}/>
           <Route path="/teams" element={<Teams/>}/>
+          <Route path="/players" element={<Players/>}/>
         </Routes>
       </BrowserRouter>
     </div>

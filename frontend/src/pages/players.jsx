@@ -2,15 +2,15 @@ import react from "react"
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-const Equipment = () => {
-    const [equipment, setEquipment] = useState( [] )
+const Players = () => {
+    const [players, setPlayers] = useState( [] )
 
     useEffect(() =>{
-        const fetchEquipment = async ()=>{
+        const fetchPlayers = async ()=>{
             try {
                 const res = await axios.get("http:localhost:8800/equipment")
                 console.log(res)
-                setEquipment(res.data)
+                setPlayers(res.data)
             } catch (error) {
                 console.log(error)
             }
@@ -19,11 +19,11 @@ const Equipment = () => {
 
     return (
         <div>
-            <h1>UMaine Equipment Teams</h1>
-            <div className="equipment">
-                {equipment.map(equipment=>(
-                    <div className="equipment">
-                        <h2>{equipment.equipmentName}</h2>
+            <h1>UMaine Players</h1>
+            <div className="players">
+                {players.map(player=>(
+                    <div className="player">
+                        <h2>{player.playerName}</h2>
                     </div>
                 ))}
             </div>
@@ -32,4 +32,4 @@ const Equipment = () => {
 }
 
 
-export default Equipment
+export default Players
