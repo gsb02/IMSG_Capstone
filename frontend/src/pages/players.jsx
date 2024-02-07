@@ -1,6 +1,5 @@
-import react from "react"
-import axios from "axios"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Players = () => {
     const [players, setPlayers] = useState( [] )
@@ -8,7 +7,7 @@ const Players = () => {
     useEffect(() =>{
         const fetchPlayers = async ()=>{
             try {
-                const res = await axios.get("http:localhost:8800/equipment")
+                const res = await axios.get("http://localhost:8800/equipment")
                 console.log(res)
                 setPlayers(res.data)
             } catch (error) {
