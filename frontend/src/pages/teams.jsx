@@ -20,7 +20,7 @@ const Teams = () => {
 
     return (
         <div>
-            <h1>UMaine Sports Teams</h1>
+            <h1>UMaine Sports Teams Graham</h1>
             <div className="teams">
                 {teams.map(team=>(
                     <div className="team">
@@ -28,6 +28,9 @@ const Teams = () => {
                     </div>
                 ))}
             </div>
+            <p>
+                This the the teams page
+            </p>
         </div>
     )
 }
