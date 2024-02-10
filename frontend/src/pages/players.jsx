@@ -12,8 +12,9 @@ const Players = ({players}) => {
     }
 
     return (
-        <div>
-            <body className = "page">
+        <div className = "page">
+            <header>Players</header>
+            <body>
                 <h1>UMaine Players</h1>
                 <div className="players">
                     {players.map((player, index) =>(

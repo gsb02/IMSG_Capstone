@@ -4,5 +4,6 @@
     color: white;
 }
 .page {
-    margin: 20px;
+    padding: 20px;
+    margin: auto;
 }
