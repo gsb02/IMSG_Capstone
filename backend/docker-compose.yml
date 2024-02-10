@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: IMSGCOS397
       MYSQL_DATABASE: inventorytracker
     ports:
-      - '3306:3306'
+      - '3307:3306'
     volumes:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - db_data:/var/lib/mysql
@@ -16,7 +16,7 @@ services:
     working_dir: /app
     environment:
       PORT: 3000
-      DB_HOST: db
+      DB_HOST: 127.0.0.1
       DB_USER: root
       DB_NAME: inventorytracker
       DB_PASSWORD: IMSGCOS397

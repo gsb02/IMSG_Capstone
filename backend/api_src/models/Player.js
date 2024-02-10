@@ -1,21 +1,34 @@
 import promisePool from "../config/dbConfig.js";
 
 export default class Player {
-    constructor(playerID, playerName) {
+    constructor(playerID, playerName, teamID, age, grade, isCoach, jerseyNum) {
         this.playerID = playerID;
         this.playerName = playerName;
+        this.teamID = teamID;
+        this.age = age;
+        this.grade = grade;
+        this.isCoach = isCoach;
+        this.jerseyNum = jerseyNum;
     }
 
-    async save() {
+    async createPlayer() {
 
         let sqlQuery = `
         INSERT INTO players(
-            playerId,
-            playerName
+            playerName,
+            teamID,
+            age,
+            class,
+            isCoach,
+            jerseyNum
         )
         VALUES(
-            '${this.playerID}',
-            '${this.playerName}'
+            '${this.playerName}',
+            '${this.teamID}',
+            '${this.age}',
+            '${this.grade}',
+            '${this.isCoach}',
+            '${this.jerseyNum}'
         )
         `;
 
@@ -26,6 +39,13 @@ export default class Player {
     static getAllPlayers() {
 
     }
+
+    //TODO
+    //Get all players by team id
+    //Delete player by id
+    //Update player by id
+    //View player info by id
+
 
 
 }
