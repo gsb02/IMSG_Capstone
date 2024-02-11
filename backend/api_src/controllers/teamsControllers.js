@@ -14,6 +14,10 @@ export const createTeam = async (req, res, next) => {
     res.send("create teams route");
 }
 
-export const getTeamByID = async (req, res, next) => {
+export const getTeam = async (req, res, next) => {
+    res.send("get team by id route");
+}
+
+export const deleteTeam = async (req, res, next) => {
     res.send("get team by id route");
 }

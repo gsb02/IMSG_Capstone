@@ -49,18 +49,29 @@ export default class Team {
     return Allteams;
 }
 
+static async getTeamByID(teamID) {
+    let sqlQuery = `
+    SELECT '${teamID}'
+    FROM teams
+    `;
+
+    const [Allteams, _] = await promisePool.execute(sqlQuery);
+    return Allteams;
+}
+
 
 //UPDATE
 
-async updateTeam() {
+//gotta figure out what goes in as a parameter here
+async updateTeam(teamID, teamName, teamDesc, gender, season) {
     let sqlQuery = `
         UPDATE teams
         SET 
-            teamName = '${this.teamName}',
-            teamDesc = '${this.teamDesc}',
-            gender = '${this.gender}',
-            season = '${this.season}'
-        WHERE teamID = '${this.teamID}'
+            teamName = '${teamName}',
+            teamDesc = '${teamDesc}',
+            gender = '${gender}',
+            season = '${season}'
+        WHERE teamID = '${teamID}'
     `;
     const [updatedTeam, _] = await promisePool.execute(sqlQuery);
     return updatedTeam;
