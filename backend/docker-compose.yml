@@ -3,11 +3,12 @@ version: '3.8'
 services:
   db:
     image: mysql:latest
+
     environment:
       MYSQL_ROOT_PASSWORD: IMSGCOS397
       MYSQL_DATABASE: inventorytracker
     ports:
-      - '3307:3306'
+      - '3306:3306'
     volumes:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - db_data:/var/lib/mysql
@@ -16,10 +17,11 @@ services:
     working_dir: /app
     environment:
       PORT: 3000
-      DB_HOST: 127.0.0.1
+      DB_HOST: db
       DB_USER: root
       DB_NAME: inventorytracker
       DB_PASSWORD: IMSGCOS397
+
     ports:
       - "3000:3000"
     volumes:
@@ -29,6 +31,7 @@ services:
       - ./package-lock.json:/app/package-lock.json
     command: ["node", "index.js"]
 
+<<<<<<< Updated upstream
   #frontend:
     #image: node:lts-alpine3.19  # Use the official Node.js 14 image
     #working_dir: /app
@@ -37,5 +40,17 @@ services:
     #volumes:
       #- ../frontend:/app
     #command: sh -c "npm install && npm run build && npm start"
+=======
+  frontend:
+    image: node:lts-alpine3.19  # Use the official Node.js 14 image
+ 
+    working_dir: /app
+    ports:
+      - "3001:3000"
+    volumes:
+      - ../frontend:/app
+    command: sh -c "npm install && npm run build && npm start"
+
+>>>>>>> Stashed changes
 volumes:
   db_data:
