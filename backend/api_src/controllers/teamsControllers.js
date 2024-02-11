@@ -4,7 +4,7 @@ export const getAllTeams = async (req, res, next) => {
     res.send("get all teams route");
 }
 
-export const createNewTeam = async (req, res, next) => {
+export const createTeam = async (req, res, next) => {
     let { teamID, teamName, teamDesc, gender, season } = req.body;
 
     let team = new Player(teamID, teamName, teamDesc, gender, season);

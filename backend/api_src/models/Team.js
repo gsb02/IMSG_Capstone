@@ -52,12 +52,31 @@ export default class Team {
 
 //UPDATE
 
+async updateTeam() {
+    let sqlQuery = `
+        UPDATE teams
+        SET 
+            teamName = '${this.teamName}',
+            teamDesc = '${this.teamDesc}',
+            gender = '${this.gender}',
+            season = '${this.season}'
+        WHERE teamID = '${this.teamID}'
+    `;
+    const [updatedTeam, _] = await promisePool.execute(sqlQuery);
+    return updatedTeam;
+}
 
 //DELETE
 
+static async deleteTeam(teamID) {
+    let sqlQuery = `
+        DELETE FROM teams
+        WHERE teamID = '${teamID}'
+    `;
+
+    const [deletedTeam, _] = await promisePool.execute(sqlQuery);
+    return deletedTeam;
+}
   
-
-
-
 }
 
