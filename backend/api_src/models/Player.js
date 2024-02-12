@@ -1,32 +1,83 @@
 import promisePool from "../config/dbConfig.js";
 
 export default class Player {
-    constructor(playerID, playerName) {
+    constructor(playerID, playerName, teamID, age, grade, isCoach, jerseyNum) {
         this.playerID = playerID;
         this.playerName = playerName;
+        this.teamID = teamID;
+        this.age = age;
+        this.grade = grade;
+        this.isCoach = isCoach;
+        this.jerseyNum = jerseyNum;
     }
 
-    async save() {
+    //WRITE
+    async createPlayer() {
 
         let sqlQuery = `
         INSERT INTO players(
-            playerId,
-            playerName
+            playerName,
+            teamID,
+            age,
+            class,
+            isCoach,
+            jerseyNum
         )
         VALUES(
-            '${this.playerID}',
-            '${this.playerName}'
+            '${this.playerName}',
+            '${this.teamID}',
+            '${this.age}',
+            '${this.grade}',
+            '${this.isCoach}',
+            '${this.jerseyNum}'
         )
         `;
 
         const [newPost, _] = await promisePool.execute(sqlQuery);
         return newPost;
     }
+    
+    async deletePlayerByID(playerID){
+        
+        let sqlQuery = `
+        DELETE FROM players
+        WHERE playerID = ${playerID}
+        `;
 
-    static getAllPlayers() {
-
+        const [deletedPlayer, _] = await promisePool.execute(sqlQuery);
+        return deletedPlayer;
     }
 
+    async deleteAllPlayersByTeamID(teamID){
 
+        let sqlQuery = `
+        DELETE FROM players
+        WHERE teamID = ${teamID}
+        `
+    }
+
+    //READ
+    static getAllPlayersByTeamID(teamID) {
+
+        let sqlQuery = `
+        SELECT * FROM players
+        WHERE teamID = ${teamID}
+        `;
+
+         
+        return promisePool.execute(sqlQuery);
+    }
+
+    static getAllPlayerInfoByID(playerID){
+
+        let sqlQuery = `
+        SELECT * FROM players
+        WHERE playerID = ${playerID}
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
+    
+    //Update player by id
 }
 
