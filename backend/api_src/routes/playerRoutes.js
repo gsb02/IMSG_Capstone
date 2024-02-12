@@ -3,8 +3,8 @@ import { getAllPlayers, createNewPlayer, getPlayerByID } from '../controllers/pl
 const router = express.Router();
 
 // @route GET && POST - /posts/
-router.route("/").get(getAllPlayers).post(createNewPlayer);
-
-router.route("/:playerID").get(getPlayerByID);
+router.route("/").post(createNewPlayer);
+router.route("/team:teamID").get(getAllPlayers)
+router.route("/player:playerID").get(getPlayerByID);
 
 export default router;

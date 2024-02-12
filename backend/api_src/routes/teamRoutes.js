@@ -8,6 +8,4 @@ const router = express.Router();
 
 router.route("/").get(getAllTeams).post(createNewTeam);
 router.route("/:teamID").get(getTeamByID);
-router.route("/").get(getAllTeams).post(createNewTeam);
-router.route("/:teamID").get(getTeamByID);
 export default router;

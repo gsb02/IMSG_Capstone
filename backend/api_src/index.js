@@ -1,7 +1,7 @@
 import express from 'express';
 import { KEYS } from './config/keys.js'
 import playerRoutes from './routes/playerRoutes.js'
-import teamRoutes from '.routes/teamRoutes.js'
+import teamRoutes from './routes/teamRoutes.js'
 const app = express();
 
 app.use(express.json());

@@ -1,10 +1,11 @@
 import Team from '../models/Team.js'
 
 export const getAllTeams = async (req, res, next) => {
+    
     res.send("get all teams route");
 }
 
-export const createTeam = async (req, res, next) => {
+export const createNewTeam = async (req, res, next) => {
     let { teamID, teamName, teamDesc, gender, season } = req.body;
 
     let team = new Player(teamID, teamName, teamDesc, gender, season);
@@ -14,7 +15,7 @@ export const createTeam = async (req, res, next) => {
     res.send("create teams route");
 }
 
-export const getTeam = async (req, res, next) => {
+export const getTeamByID = async (req, res, next) => {
     res.send("get team by id route");
 }
 

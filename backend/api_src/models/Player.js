@@ -11,6 +11,7 @@ export default class Player {
         this.jerseyNum = jerseyNum;
     }
 
+    //WRITE
     async createPlayer() {
 
         let sqlQuery = `
@@ -35,18 +36,48 @@ export default class Player {
         const [newPost, _] = await promisePool.execute(sqlQuery);
         return newPost;
     }
+    
+    async deletePlayerByID(playerID){
+        
+        let sqlQuery = `
+        DELETE FROM players
+        WHERE playerID = ${playerID}
+        `;
 
-    static getAllPlayers() {
-
+        const [deletedPlayer, _] = await promisePool.execute(sqlQuery);
+        return deletedPlayer;
     }
 
-    //TODO
-    //Get all players by team id
-    //Delete player by id
+    async deleteAllPlayersByTeamID(teamID){
+
+        let sqlQuery = `
+        DELETE FROM players
+        WHERE teamID = ${teamID}
+        `
+    }
+
+    //READ
+    static getAllPlayersByTeamID(teamID) {
+
+        let sqlQuery = `
+        SELECT * FROM players
+        WHERE teamID = ${teamID}
+        `;
+
+         
+        return promisePool.execute(sqlQuery);
+    }
+
+    static getAllPlayerInfoByID(playerID){
+
+        let sqlQuery = `
+        SELECT * FROM players
+        WHERE playerID = ${playerID}
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
+    
     //Update player by id
-    //View player info by id
-
-
-
 }
 
