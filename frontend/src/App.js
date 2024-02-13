@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route,} from "react-router-dom";
 import Equipment from "./pages/equipment";
 import Teams from "./pages/teams";
-import Players from "./pages/players";
 import AddPlayer from "./pages/addPlayer";
+import AddTeams from './pages/addTeam';
+import HomePage from './pages/home';
 import "./style.css"
 
 function App() {
@@ -24,9 +25,10 @@ function App() {
       </ul>
       <BrowserRouter>
         <Routes>
-          <Route path = "/equip" element={<Equipment/>}/>
+          <Route path="/" element={<HomePage/>}/>
+          <Route path="/equip" element={<Equipment/>}/>
           <Route path="/teams" element={<Teams/>}/>
-          <Route path="/players" element={<Players players={players} />}/>
+          <Route path="/addTeam" element={<AddTeams/>}/>
           <Route path="/add-player" element={<AddPlayer onAddPlayer={addPlayer} />} />        
         </Routes>
       </BrowserRouter>
