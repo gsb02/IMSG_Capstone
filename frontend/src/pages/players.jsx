@@ -3,32 +3,36 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './players.css';
 
-const Players = ({players}) => {
+const Players = () => {
+    const [players, setPlayers] = useState([]);
 
-    const navigate = useNavigate();
+    useEffect(() => {
+        const fetchPlayers = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/players/team1');
+                setPlayers(response.data);
+                console.log(response.data);
+            } catch (error) {
+                console.error('There was an error fetching the players:', error);
+                console.log(error.toJSON());
+            }
+        };
 
-    const handleAddPlayerClick = () => {
-        navigate('/add-player');
-    }
+        fetchPlayers();
+    }, []);
 
     return (
-        <div className = "page">
-            <header>Players</header>
-            <body>
-                <h1>UMaine Players</h1>
-                <div className="players">
-                    {players.map((player, index) =>(
-                        <div key={index} className="player">
-                            <h2>{player.name}</h2>
-                            <p>Age: {player.age}</p>
-                            <p>Sport: {player.sport}</p>
-                        </div>
-                    ))}
-                </div>
-                <button className = "button" onClick={handleAddPlayerClick}>Add Player </button>
-            </body>        
+        <div>
+            <h1>Player List</h1>
+            <ul>
+                {players.map((player, index) => (
+                    <li key={index}>
+                        Name: {player.playerName}, Age: {player.age}, Class: {player.class}
+                    </li>
+                ))}
+            </ul>
         </div>
-    )
-}
+    );
+};
 
-export default Players
+export default Players;
