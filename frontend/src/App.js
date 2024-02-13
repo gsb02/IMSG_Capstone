@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route,} from "react-router-dom";
 import Equipment from "./pages/equipment";
 import Teams from "./pages/teams";
-
 import AddPlayer from "./pages/addPlayer";
-import "./style.css"
 import AddTeams from './pages/addTeam';
 import HomePage from './pages/home';
+import "./style.css"
 
 function App() {
   const [players,setPlayers] = useState([]);
