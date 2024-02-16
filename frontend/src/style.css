@@ -1,4 +1,4 @@
-ul{
+#links{
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -6,7 +6,7 @@ ul{
     background-color: blue;
 }
 
-li a {
+#li {
     float: left;
     display: block;
     color: white;
