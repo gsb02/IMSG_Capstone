@@ -1,39 +1,17 @@
-import react from "react"
-import axios from "axios"
-import { useEffect } from "react"
-import { useState } from "react"
-
+import { Link } from 'react-router-dom';
 const Teams = () => {
-    const [teams, setTeam] = useState( [] )
-
-    useEffect(() =>{
-        const fetchTeams = async ()=>{
-            try {
-                const res = await axios.get("http:localhost:8800/teams")
-                console.log(res)
-                setTeam(res.data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    }, [])
-
     return (
-        <div>
-            <h1>UMaine Sports Teams Graham</h1>
-            <div className="teams">
-                {teams.map(team=>(
-                    <div className="team">
-                        <h2>{teams.teamName}</h2>
-                    </div>
-                ))}
+        <>
+            <h1 style={{ textAlign: "center" }}>UMaine Sports Teams</h1>
+            <div>
             </div>
-            <p>
-                This the the teams page
-            </p>
-        </div>
-    )
-}
+            <div style={{ justifyContent: 'center', display: 'flex', marginTop: '350px' }}>
+                <Link to="/addTeam">
+                    <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Add Team</button>
+                </Link>
+            </div>
+        </>
+    );
+};
 
-
-export default Teams
+export default Teams;
