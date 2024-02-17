@@ -51,8 +51,9 @@ export default class Team {
 
 static async getTeamByID(teamID) {
     let sqlQuery = `
-    SELECT '${teamID}'
+    SELECT *
     FROM teams
+    WHERE WHERE teamID = '${teamID}'
     `;
 
     const [Allteams, _] = await promisePool.execute(sqlQuery);
