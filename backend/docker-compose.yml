@@ -8,7 +8,7 @@ services:
       MYSQL_ROOT_PASSWORD: IMSGCOS397
       MYSQL_DATABASE: inventorytracker
     ports:
-      - '3307:3306'
+      - '3306:3306'
     volumes:
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - db_data:/var/lib/mysql
@@ -31,15 +31,15 @@ services:
       - ./package-lock.json:/app/package-lock.json
     command: ["node", "index.js"]
 
-  #frontend:
-    #image: node:lts-alpine3.19  # Use the official Node.js 14 image
+  # frontend:
+  #   image: node:lts-alpine3.19  # Use the official Node.js 14 image
  
-    #working_dir: /app
-    #ports:
-      #- "3001:3000"
-    #volumes:
-      #- ../frontend:/app
-    #command: sh -c "npm install && npm run build && npm start"
+  #   working_dir: /app
+  #   ports:
+  #     - "3001:3000"
+  #   volumes:
+  #     - ../frontend:/app
+  #   command: sh -c "npm install && export NODE_OPTIONS=--openssl-legacy-provider && npm run build && npm start"
 
 volumes:
   db_data:

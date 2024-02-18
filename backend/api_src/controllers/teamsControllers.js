@@ -6,11 +6,11 @@ export const getAllTeams = async (req, res, next) => {
 }
 
 export const createNewTeam = async (req, res, next) => {
-    let { teamID, teamName, teamDesc, gender, season } = req.body;
+    let { teamID, teamName, teamDesc, sportID, gender, season } = req.body;
 
-    let team = new Player(teamID, teamName, teamDesc, gender, season);
+    let team = new Team(teamID, teamName, teamDesc, sportID, gender, season);
     
-    team = await player.createPlayer();
+    team = await team.createTeam();
     console.log(team)
     res.send("create teams route");
 }

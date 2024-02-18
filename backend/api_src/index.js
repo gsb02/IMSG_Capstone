@@ -14,6 +14,7 @@ app.use(cors({
 app.use("/players", playerRoutes);
 
 app.use("/teams", teamRoutes);
+//app.use("/sports", sportsRoutes);
 
 app.get('/', (req, res) => {
     res.send("api is running");
