@@ -8,12 +8,14 @@ import promisePool from "../config/dbConfig.js";
 //`season` year DEFAULT NULL,
 
 export default class Team {
-    constructor(teamID, teamName, teamDesc, gender, season) {
+    constructor(teamID, teamName, teamDesc, sportID, gender, season) {
         this.teamID = teamID;
         this.teamName = teamName;
         this.teamDesc = teamDesc;
+        this.sportID = sportID;
         this.gender = gender;
         this.season = season;
+        
     }
 //CREATE 
     async createTeam() {
@@ -23,6 +25,7 @@ export default class Team {
             teamID,
             teamName,
             teamDesc,
+            sportID,
             gender,
             season
         )
@@ -30,6 +33,7 @@ export default class Team {
             '${this.teamID}',
             '${this.teamName}',
             '${this.teamDesc}',
+            '${this.sportID}',
             '${this.gender}',
             '${this.season}'
         )
@@ -64,12 +68,13 @@ static async getTeamByID(teamID) {
 //UPDATE
 
 //gotta figure out what goes in as a parameter here
-async updateTeam(teamID, teamName, teamDesc, gender, season) {
+async updateTeam(teamID, teamName, teamDesc, sportID, gender, season) {
     let sqlQuery = `
         UPDATE teams
         SET 
             teamName = '${teamName}',
             teamDesc = '${teamDesc}',
+            sportID = '${sportID}',
             gender = '${gender}',
             season = '${season}'
         WHERE teamID = '${teamID}'

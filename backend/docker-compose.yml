@@ -30,16 +30,14 @@ services:
       - ./package.json:/app/package.json
       - ./package-lock.json:/app/package-lock.json
     command: ["node", "index.js"]
-
-  frontend:
-    image: node:lts-alpine3.19  # Use the official Node.js 14 image
+  # frontend:
+  #   image: node:lts-alpine3.19  # Use the official Node.js 14 image
  
-    working_dir: /app
-    ports:
-      - "3001:3000"
-    volumes:
-      - ../frontend:/app
-    command: sh -c "npm install && npm run build && npm start"
-
+  #   working_dir: /app
+  #   ports:
+  #     - "3001:3000"
+  #   volumes:
+  #     - ../frontend:/app
+  #   command: sh -c "npm install && export NODE_OPTIONS=--openssl-legacy-provider && npm run build && npm start"
 volumes:
   db_data:
