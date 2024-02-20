@@ -113,6 +113,17 @@ CREATE TABLE `sports` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+INSERT INTO `sports` (sportName) VALUES 
+('Baseball'),
+('Basketball'),
+('Field Hockey'),
+('Football'),
+('Ice Hockey'),
+('Soccer'),
+('Softball'),
+('Swimming & Diving'),
+('Track, Field & XC');
+
 --
 -- Table structure for table `teams`
 --
