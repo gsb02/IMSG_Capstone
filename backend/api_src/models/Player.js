@@ -37,23 +37,24 @@ export default class Player {
         return newPost;
     }
     
-    async deletePlayerByID(playerID){
+    static async deletePlayerByID(playerID){
         
         let sqlQuery = `
         DELETE FROM players
         WHERE playerID = ${playerID}
         `;
 
-        const [deletedPlayer, _] = await promisePool.execute(sqlQuery);
-        return deletedPlayer;
+        
+        return promisePool.execute(sqlQuery);
     }
 
-    async deleteAllPlayersByTeamID(teamID){
+    static async deleteAllPlayersByTeamID(teamID){
 
         let sqlQuery = `
         DELETE FROM players
         WHERE teamID = ${teamID}
         `
+        return promisePool.execute(sqlQuery);
     }
 
     //READ
@@ -64,7 +65,6 @@ export default class Player {
         WHERE teamID = ${teamID}
         `;
 
-         
         return promisePool.execute(sqlQuery);
     }
 
@@ -79,5 +79,7 @@ export default class Player {
     }
     
     //Update player by id
+    //Get all assigned equip
+    //Remove assigned equip
 }
 

@@ -21,5 +21,21 @@ export const getPlayerByID = async (req, res, next) => {
 
     let [player, _] = await Player.getAllPlayerInfoByID(playerID);
 
-    res.status(200).json({player});
+    res.status(200).json(player);
+}
+
+export const deletePlayerByID = async (req, res, next) => {
+    let playerID = req.params.playerID;
+
+    let [player, _] = await Player.deletePlayerByID(playerID);
+
+    res.status(200).json(player);
+}
+
+export const deleteAllPlayersByTeamID = async (req, res, next) => {
+    let teamID = req.params.teamID;
+
+    let [player, _] = await Player.deleteAllPlayersByTeamID(teamID);
+
+    res.status(200).json(player);
 }
