@@ -7,7 +7,7 @@ const router = express.Router();
 //Gotta figure out how to do the delete and update in here
 
 router.route("/").get(getAllTeams).post(createNewTeam);
-router.route("/:teamID").get(getTeamByID).delete(deleteTeam).post(updateTeam);
+router.route("/:teamID").get(getTeamByID).delete(deleteTeam).put(updateTeam);
 
 
 export default router;

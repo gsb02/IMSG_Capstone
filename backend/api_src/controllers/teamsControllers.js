@@ -3,7 +3,7 @@ import Team from '../models/Team.js'
 export const getAllTeams = async (req, res, next) => {
     
     res.send("get all teams route");
-    let [team, _] = await Team.getAllTeam();
+    let [team, _] = await Team.getAllTeams();
 
     res.status(200).json(team);
 }

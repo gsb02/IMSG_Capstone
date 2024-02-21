@@ -9,7 +9,7 @@ export const getAllPlayers = async (req, res, next) => {
 }
 
 export const createNewPlayer = async (req, res, next) => {
-    let { playerName, teamID, ge, grade, isCoach, jerseyNum } = req.body;
+    let { playerName, teamID, age, grade, isCoach, jerseyNum } = req.body;
 
     let player = new Player(null, playerName, teamID, age, grade, isCoach, jerseyNum);
     

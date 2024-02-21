@@ -57,7 +57,7 @@ static async getTeamByID(teamID) {
     let sqlQuery = `
     SELECT *
     FROM teams
-    WHERE WHERE teamID = '${teamID}'
+    WHERE teamID = '${teamID}'
     `;
 
     const [Allteams, _] = await promisePool.execute(sqlQuery);
