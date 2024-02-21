@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllSports, getSportByID, } from '../controllers/sportControllers.js';
+import { getAllSports, getSportByID, } from '../controllers/sportsControllers.js';
 const router = express.Router();
 
 // @route GET && POST - /posts/
@@ -7,7 +7,7 @@ const router = express.Router();
 //Gotta figure out how to do the delete and update in here
 
 router.route("/").get(getAllSports)
-router.route("/:sportID").get(getSportID);
+router.route("/:sportID").get(getSportByID);
 
 
 export default router;
