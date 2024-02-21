@@ -1,13 +1,15 @@
 import Player from '../models/Player.js'
 
+
 export const getAllPlayers = async (req, res, next) => {
     let teamID = req.params.teamID;
+    //wouldn't they not need to pass an ID to get all players? this will just return 1
     const [players, _] = await Player.getAllPlayersByTeamID(teamID);
     res.status(200).json(players);
 }
 
 export const createNewPlayer = async (req, res, next) => {
-    let { playerName, teamID, age, grade, isCoach, jerseyNum } = req.body;
+    let { playerName, teamID, ge, grade, isCoach, jerseyNum } = req.body;
 
     let player = new Player(null, playerName, teamID, age, grade, isCoach, jerseyNum);
     
