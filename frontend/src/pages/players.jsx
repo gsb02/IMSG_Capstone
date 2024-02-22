@@ -27,7 +27,7 @@ const handleDelete = async (playerID) => {
     try {
         await axios.delete(`http://localhost:3000/players/player${playerID}`);
         console.log(playerID);
-        setPlayers(players.filter(player => players.playerID !== playerID));
+        setPlayers(players.filter(player => player.playerId !== playerID));
     } catch (error) {
         console.error('There was an error deleting the player:', error);
     }
