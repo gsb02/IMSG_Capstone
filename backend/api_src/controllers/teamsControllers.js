@@ -15,7 +15,7 @@ export const createNewTeam = async (req, res, next) => {
     
     team = await team.createTeam();
     console.log(team)
-    res.send("create teams route");
+    res.status(200).json(team);
 }
 
 export const getTeamByID = async (req, res, next) => {
@@ -45,7 +45,7 @@ export const updateTeam = async (req, res, next) => {
     let sportID = req.params.sportID;
     let gender = req.params.gender;
     let season = req.params.season;
-    let [team, _] = await Team.deleteTeam(teamID, teamName, teamDesc, sportID, gender, season);
+    let [team, _] = await Team.updateTeam(teamID, teamName, teamDesc, sportID, gender, season);
 
     res.status(200).json(team);
 }
