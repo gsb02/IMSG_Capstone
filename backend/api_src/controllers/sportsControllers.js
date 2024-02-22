@@ -1,4 +1,4 @@
-import Sport from '../models/Sport.js'
+import Sport from '../models/Sports.js'
 
 export const getAllSports = async (req, res, next) => {
     
