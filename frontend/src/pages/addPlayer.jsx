@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import './players.css';
 
 const AddPlayer = ({ onAddPlayer }) => {
@@ -9,16 +10,18 @@ const AddPlayer = ({ onAddPlayer }) => {
             navigate(-1);
     }
 
-    const [name, setName] = useState('');
+    const [playerName, setPlayerName] = useState('');
     const [age, setAge] = useState('');
     const [sport, setSport] = useState('');
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onAddPlayer({name, age, sport});
-        setName('');
-        setAge('');
-        setSport('');
-        navigate('/players');
+    const [teamID, setTeamID] = useState('');
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        await axios.post('http://localhost:3000/players', { playerName, teamID, age, grade:"SR", isCoach:0,jerseyNum:0 });
+        navigate('/players'); // Navigate after successful addition
+    } catch (error) {
+            console.error('There was an error adding the player:', error);
+    }
     }
 
     return (
@@ -28,7 +31,7 @@ const AddPlayer = ({ onAddPlayer }) => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Player Name:
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} required/>
+                    <input type="text" value={playerName} onChange={(e) => setPlayerName(e.target.value)} required/>
                 </label>
                 <label>
                     Age:
@@ -37,6 +40,10 @@ const AddPlayer = ({ onAddPlayer }) => {
                 <label>
                     Sport:
                     <input type="text" value={sport} onChange={(e) => setSport(e.target.value)} required/>
+                </label>
+                <label>
+                    teamID:
+                    <input type="number" value={teamID} onChange={(e) => setTeamID(e.target.value)} required/>
                 </label>
                 <button type="submit">Add Player</button>
             </form>

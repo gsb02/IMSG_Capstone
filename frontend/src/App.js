@@ -26,7 +26,8 @@ function App() {
           <Route path="/equip" element={<Equipment/>}/>
           <Route path="/teams" element={<Teams/>}/>
           <Route path="/addTeam" element={<AddTeams/>}/>
-          <Route path="/players" element={<Players/>} />       
+          <Route path="/players" element={<Players/>} />   
+          <Route path="/addPlayer" element={<AddPlayer/>}></Route>    
         </Routes>
       </BrowserRouter>
     </div>

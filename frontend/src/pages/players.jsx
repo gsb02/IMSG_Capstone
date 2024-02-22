@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import './players.css';
+
 
 
 const Players = () => {
@@ -22,8 +23,20 @@ const Players = () => {
         fetchPlayers();
     }, []);
 
+const handleDelete = async (playerID) => {
+    try {
+        await axios.delete(`http://localhost:3000/players/player${playerID}`);
+        setPlayers(players.filter(player => player.playerID !== playerID));
+    } catch (error) {
+        console.error('There was an error deleting the player:', error);
+    }
+};
+
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+            <Link to="/addPlayer">
+                    <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Add Player</button>
+            </Link>
             <h1 style={{textAlign: "center"}}>Player List</h1>
             <table style = {{ textAlign: "center",  backgroundColor: "white", borderStyle: "solid", margin: "5px", borderCollapse: "collapse"}}>
                 <tr>
@@ -55,7 +68,7 @@ const Players = () => {
                             <button>Edit</button>
                         </td>
                         <td  style={{ borderBottom: "1px solid black" }}>
-                            <button>Delete</button>
+                            <button onClick={() => handleDelete(player.playerID)}>Delete</button>
                         </td>
                     </tr>
                 ))}
