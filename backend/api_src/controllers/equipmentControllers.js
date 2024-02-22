@@ -27,6 +27,7 @@ export const createEquipment = async (req, res, next) => {
 
         //accessories
         case 2:
+            break;
     }
     res.send("create equipment route");
 }
