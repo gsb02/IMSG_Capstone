@@ -1,4 +1,6 @@
+import { equal } from "assert";
 import promisePool from "../config/dbConfig.js";
+import { deleteEquipmentByID } from "../controllers/equipmentControllers.js";
 
 export default class Equipment {
     constructor(equipmentID, equipmentName, storedQuantity, distQuantity, sportID, equipmentType, lastOrdered, lastDistributed) {
@@ -49,5 +51,26 @@ export default class Equipment {
 
         const [mostRecentID, _] = await promisePool.execute(sqlQuery);
         return mostRecentID[0].equipmentID;
+    }
+
+    static async getEquipmentTypeByID(equipmentID){
+        let sqlQuery = `
+        SELECT equipmentType
+        FROM equipment
+        WHERE equipmentID = ${equipmentID}
+        `;
+
+        const [result, _] = await promisePool.execute(sqlQuery);
+        return result[0].equipmentType;
+    }
+
+    static async deleteEquipmentByID(equipmentID){
+        let sqlQuery = `
+        DELETE FROM equipment
+        WHERE equipmentID = ${equipmentID}
+        `;
+
+        return promisePool.execute(sqlQuery);
+
     }
 }

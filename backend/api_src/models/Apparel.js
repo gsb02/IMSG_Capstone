@@ -41,4 +41,14 @@ export default class Apparel {
         const [newApparel, _] = await promisePool.execute(sqlQuery);
         return newApparel;
     }
+
+    static async deleteApparelByEquipmentID(equipmentID){
+        
+        let sqlQuery = `
+            DELETE FROM apparel
+            WHERE equipmentID = ${equipmentID}
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
 }
