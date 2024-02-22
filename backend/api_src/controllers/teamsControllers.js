@@ -2,7 +2,7 @@ import Team from '../models/Team.js'
 
 export const getAllTeams = async (req, res, next) => {
     
-    res.send("get all teams route");
+    //res.send("get all teams route");
     let [team, _] = await Team.getAllTeams();
 
     res.status(200).json(team);
@@ -19,7 +19,7 @@ export const createNewTeam = async (req, res, next) => {
 }
 
 export const getTeamByID = async (req, res, next) => {
-    res.send("get team by id route");
+    //res.send("get team by id route");
 
     let teamID = req.params.teamID;
     let [team, _] = await Team.getTeamByID(teamID);
@@ -28,7 +28,7 @@ export const getTeamByID = async (req, res, next) => {
 }
 
 export const deleteTeam = async (req, res, next) => {
-    res.send("delete team by id route");
+    //res.send("delete team by id route");
 
     let teamID = req.params.teamID;
     let [team, _] = await Team.deleteTeam(teamID);
@@ -37,7 +37,7 @@ export const deleteTeam = async (req, res, next) => {
 }
 
 export const updateTeam = async (req, res, next) => {
-    res.send("update team info");
+    //res.send("update team info");
 
     let teamID = req.params.teamID;
     let teamName = req.params.teamName;
