@@ -26,7 +26,8 @@ const Players = () => {
 const handleDelete = async (playerID) => {
     try {
         await axios.delete(`http://localhost:3000/players/player${playerID}`);
-        setPlayers(players.filter(player => player.playerID !== playerID));
+        console.log(playerID);
+        setPlayers(players.filter(player => players.playerID !== playerID));
     } catch (error) {
         console.error('There was an error deleting the player:', error);
     }
@@ -68,7 +69,7 @@ const handleDelete = async (playerID) => {
                             <button>Edit</button>
                         </td>
                         <td  style={{ borderBottom: "1px solid black" }}>
-                            <button onClick={() => handleDelete(player.playerID)}>Delete</button>
+                            <button onClick={() => handleDelete(player.playerId)}>Delete</button>
                         </td>
                     </tr>
                 ))}
