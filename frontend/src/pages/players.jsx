@@ -9,69 +9,57 @@ const Players = () => {
     const [players, setPlayers] = useState([]);
     const [teamId, setTeamId] = useState('1');
 
-    useEffect(() => {
-        const fetchPlayers = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3000/players/team${teamId}`);
-                setPlayers(response.data);
-                console.log(response.data);
-            } catch (error) {
-                console.error('There was an error fetching the players:', error);
-                console.log(error.toJSON());
-            }
-        };
+    // Moved the fetching logic to its own function
+    const fetchPlayers = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/players/team${teamId}`);
+            setPlayers(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.error('There was an error fetching the players:', error);
+        }
+    };
 
+    const handleDelete = async (playerID) => {
+        try {
+            await axios.delete(`http://localhost:3000/players/player${playerID}`);
+            setPlayers(players.filter(player => player.playerId !== playerID));
+        } catch (error) {
+            console.error('There was an error deleting the player:', error);
+        }
+    };
+
+    const handleTeamIdChange = (event) => {
+        setTeamId(event.target.value);
+    };
+
+    // This function will be called when the "Load Players" button is clicked
+    const refreshPlayers = () => {
         fetchPlayers();
-    }, [teamId]);
-
-const handleDelete = async (playerID) => {
-    try {
-        await axios.delete(`http://localhost:3000/players/player${playerID}`);
-        console.log(playerID);
-        setPlayers(players.filter(player => player.playerId !== playerID));
-    } catch (error) {
-        console.error('There was an error deleting the player:', error);
-    }
-};
-
-const HandleTeamIdChange = (event) => {
-    setTeamId(event.target.value);
-};
-
-const refreshPlayers = () => {
-
-};
+    };
 
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
             <Link to="/addPlayer">
-                    <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Add Player</button>
+                <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Add Player</button>
             </Link>
             <h1 style={{textAlign: "center"}}>Player List</h1>
             <input
                 type="text"
                 value={teamId}
-                onChange={HandleTeamIdChange}
+                onChange={handleTeamIdChange}
                 placeholder="Enter Team ID"
             />
             <button onClick={refreshPlayers}>Load Players</button>
             <table style = {{ textAlign: "center",  backgroundColor: "white", borderStyle: "solid", margin: "5px", borderCollapse: "collapse"}}>
                 <tr>
-                    <th scope = "col">
-                        Name
-                    </th>
-                    <th scope = "col">
-                        Age
-                    </th>
-                    <th scope = "col">
-                         Class
-                    </th>
+                    <th scope = "col">Name</th>
+                    <th scope = "col">Age</th>
+                    <th scope = "col">Class</th>
+                    <th scope = "col">Actions</th>
                 </tr>
                 {players.map((player, index) => (
-                     /*<li style = {{textAlign: "center", backgroundColor: "white", }} key={index}>
-                        Name: {player.playerName}, Age: {player.age}, Class: {player.class}
-                    </li>*/
-                    <tr>
+                    <tr key={index}>
                         <td style={{ borderBottom: "1px solid black" }}>
                             {player.playerName}
                         </td>
@@ -81,10 +69,8 @@ const refreshPlayers = () => {
                         <td style={{ borderBottom: "1px solid black" }}>
                             {player.class}
                         </td>
-                        <td  style={{ borderBottom: "1px solid black" }}>
+                        <td style={{ borderBottom: "1px solid black" }}>
                             <button>Edit</button>
-                        </td>
-                        <td  style={{ borderBottom: "1px solid black" }}>
                             <button onClick={() => handleDelete(player.playerId)}>Delete</button>
                         </td>
                     </tr>
@@ -94,6 +80,4 @@ const refreshPlayers = () => {
     );
 };
 
-
 export default Players;
-
