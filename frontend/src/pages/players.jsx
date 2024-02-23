@@ -20,6 +20,10 @@ const Players = () => {
         }
     };
 
+    useEffect(() => {
+        fetchPlayers();
+    }, [teamId]);
+
     const handleDelete = async (playerID) => {
         try {
             await axios.delete(`http://localhost:3000/players/player${playerID}`);
@@ -33,24 +37,20 @@ const Players = () => {
         setTeamId(event.target.value);
     };
 
-    // This function will be called when the "Load Players" button is clicked
-    const refreshPlayers = () => {
-        fetchPlayers();
-    };
-
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
             <Link to="/addPlayer">
                 <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Add Player</button>
             </Link>
             <h1 style={{textAlign: "center"}}>Player List</h1>
-            <input
-                type="text"
-                value={teamId}
-                onChange={handleTeamIdChange}
-                placeholder="Enter Team ID"
-            />
-            <button onClick={refreshPlayers}>Load Players</button>
+            <select value={teamId} onChange={handleTeamIdChange}>
+                <option value="1">Men's Basketball</option>
+                <option value="2">Women's Field Hockey</option>
+                <option value="3">Men's Football</option>
+                <option value="4">Men's Ice Hockey</option>
+                <option value="5">Women's Soccer</option>
+                <option value="6">Women's Softball</option>
+            </select>
             <table style = {{ textAlign: "center",  backgroundColor: "white", borderStyle: "solid", margin: "5px", borderCollapse: "collapse"}}>
                 <thead>
                 <tr>
