@@ -7,11 +7,12 @@ import './players.css';
 
 const Players = () => {
     const [players, setPlayers] = useState([]);
+    const [teamId, setTeamId] = useState('1');
 
     useEffect(() => {
         const fetchPlayers = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/players/team1');
+                const response = await axios.get(`http://localhost:3000/players/team${teamId}`);
                 setPlayers(response.data);
                 console.log(response.data);
             } catch (error) {
@@ -21,7 +22,7 @@ const Players = () => {
         };
 
         fetchPlayers();
-    }, []);
+    }, [teamId]);
 
 const handleDelete = async (playerID) => {
     try {
@@ -33,12 +34,27 @@ const handleDelete = async (playerID) => {
     }
 };
 
+const HandleTeamIdChange = (event) => {
+    setTeamId(event.target.value);
+};
+
+const refreshPlayers = () => {
+
+};
+
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
             <Link to="/addPlayer">
                     <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Add Player</button>
             </Link>
             <h1 style={{textAlign: "center"}}>Player List</h1>
+            <input
+                type="text"
+                value={teamId}
+                onChange={HandleTeamIdChange}
+                placeholder="Enter Team ID"
+            />
+            <button onClick={refreshPlayers}>Load Players</button>
             <table style = {{ textAlign: "center",  backgroundColor: "white", borderStyle: "solid", margin: "5px", borderCollapse: "collapse"}}>
                 <tr>
                     <th scope = "col">
