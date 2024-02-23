@@ -78,8 +78,20 @@ export default class Player {
         return promisePool.execute(sqlQuery);
     }
     
-    //Update player by id
-    //Get all assigned equip
-    //Remove assigned equip
+    async updatePlayerByID(){
+
+        let sqlQuery = `
+        UPDATE players
+        SET
+            playerName = '${this.playerName}',
+            teamID = '${this.teamID}',
+            age = '${this.age}',
+            class = '${this.grade}',
+            isCoach = '${this.isCoach}'
+        WHERE playerID = '${this.playerID}'
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
 }
 

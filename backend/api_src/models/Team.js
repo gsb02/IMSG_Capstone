@@ -22,7 +22,6 @@ export default class Team {
 
         let sqlQuery = `
         INSERT INTO teams(
-            teamID,
             teamName,
             teamDesc,
             sportID,
@@ -30,7 +29,6 @@ export default class Team {
             season
         )
         VALUES(
-            '${this.teamID}',
             '${this.teamName}',
             '${this.teamDesc}',
             '${this.sportID}',

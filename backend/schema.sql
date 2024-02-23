@@ -145,8 +145,6 @@ INSERT INTO `sports` (sportName) VALUES
 ('Swimming & Diving'),
 ('Track, Field & XC');
 
-
-
 --
 -- Table structure for table `teams`
 --
