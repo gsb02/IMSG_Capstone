@@ -52,12 +52,18 @@ const Players = () => {
             />
             <button onClick={refreshPlayers}>Load Players</button>
             <table style = {{ textAlign: "center",  backgroundColor: "white", borderStyle: "solid", margin: "5px", borderCollapse: "collapse"}}>
+                <thead>
                 <tr>
                     <th scope = "col">Name</th>
                     <th scope = "col">Age</th>
                     <th scope = "col">Class</th>
+                    <th scope = "col">Team ID</th>
+                    <th scope = "col">Coach</th>
+                    <th scope = "col">Jersey Number</th>
                     <th scope = "col">Actions</th>
                 </tr>
+                </thead>
+                <tbody>
                 {players.map((player, index) => (
                     <tr key={index}>
                         <td style={{ borderBottom: "1px solid black" }}>
@@ -70,11 +76,21 @@ const Players = () => {
                             {player.class}
                         </td>
                         <td style={{ borderBottom: "1px solid black" }}>
+                            {player.teamID}
+                        </td>
+                        <td style={{ borderBottom: "1px solid black" }}>
+                            {player.isCoach ? 'Yes' : 'No'}
+                        </td>
+                        <td style={{ borderBottom: "1px solid black" }}>
+                            {player.jerseyNum}
+                        </td>
+                        <td style={{ borderBottom: "1px solid black" }}>
                             <button>Edit</button>
                             <button onClick={() => handleDelete(player.playerId)}>Delete</button>
                         </td>
                     </tr>
                 ))}
+                </tbody>
             </table>
         </div>
     );
