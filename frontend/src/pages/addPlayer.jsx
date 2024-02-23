@@ -14,10 +14,15 @@ const AddPlayer = ({ onAddPlayer }) => {
     const [age, setAge] = useState('');
     const [sport, setSport] = useState('');
     const [teamID, setTeamID] = useState('');
+    const [grade, setGrade] = useState('');
+    const [isCoach, setIsCoach] = useState("0");
+    const [ jerseyNum, setJerseyNum] = useState('');
+
     const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        await axios.post('http://localhost:3000/players', { playerName, teamID, age, grade:"SR", isCoach:0,jerseyNum:0 });
+        console.log(`Submitting player with teamID: ${teamID}`);
+        await axios.post('http://localhost:3000/players', { playerName, teamID: Number(teamID), age, grade, isCoach: Number(isCoach),jerseyNum});
         navigate('/players'); // Navigate after successful addition
     } catch (error) {
             console.error('There was an error adding the player:', error);
@@ -42,8 +47,37 @@ const AddPlayer = ({ onAddPlayer }) => {
                     <input type="text" value={sport} onChange={(e) => setSport(e.target.value)} required/>
                 </label>
                 <label>
-                    teamID:
-                    <input type="number" value={teamID} onChange={(e) => setTeamID(e.target.value)} required/>
+                    Team:
+                    <select value={teamID} onChange={(e) => setTeamID(e.target.value)} required>
+                        <option value="" disabled>Select a sport</option>
+                        <option value="1">Men's Basketball</option>
+                        <option value="2">Women's Field Hockey</option>
+                        <option value="3">Men's Football</option>
+                        <option value="4">Men's Ice Hockey</option>
+                        <option value="5">Women's Soccer</option>
+                        <option value="6">Women's Softball</option>
+                    </select>
+                </label>
+                <label>
+                    grade:
+                    <select value={grade} onChange={(e) => setGrade(e.target.value)} required>
+                        <option value="" disabled>Select a grade</option>
+                        <option value="FR">Freshman (FR)</option>
+                        <option value="SO">Sophomore (SO)</option>
+                        <option value="JR">Junior (JR)</option>
+                        <option value="SR">Senior (SR)</option>
+                    </select>
+                </label>
+                <label>
+                    Coach:
+                    <select value={isCoach} onChange={(e) => setIsCoach(e.target.value)} required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </label>
+                <label>
+                    Jersey Number:
+                    <input type="number" value={jerseyNum} onChange={(e) => setJerseyNum(e.target.value)} required/>
                 </label>
                 <button type="submit">Add Player</button>
             </form>

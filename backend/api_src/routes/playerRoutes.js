@@ -6,7 +6,7 @@ const router = express.Router();
 router.route("/").post(createNewPlayer);
 
 router.route("/team:teamID").get(getAllPlayers)
-router.route("/player:playerID").get(getPlayerByID).delete(deletePlayerByID).put(updatePlayerbyID);
+router.route("/player:playerID").get(getPlayerByID).delete(deletePlayerByID).put(updatePlayerByID);
 router.route("/team:teamID").get(getAllPlayers).delete(deleteAllPlayersByTeamID);
 
 export default router;

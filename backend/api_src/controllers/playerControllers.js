@@ -20,7 +20,7 @@ export const createNewPlayer = async (req, res, next) => {
         console.log(player);
         res.status(200).json(player);
     } catch (error) {
-
+        console.log(error);
         res.status(500).json({ error: 'Failed to create new player' });
     }
 };
