@@ -2,7 +2,7 @@ import Sport from '../models/Sports.js'
 
 export const getAllSports = async (req, res, next) => {
     
-    res.send("get all sports route");
+    //res.send("get all sports route");
     let [sport, _] = await Sport.getAllSports();
 
     res.status(200).json(sport);
