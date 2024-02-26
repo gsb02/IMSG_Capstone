@@ -46,9 +46,7 @@ export default class Team {
     SELECT *
     FROM teams
     `;
-
-    const [Allteams, _] = await promisePool.execute(sqlQuery);
-    return Allteams;
+    return promisePool.execute(sqlQuery);
 }
 
 static async getTeamByID(teamID) {
@@ -89,8 +87,7 @@ static async deleteTeam(teamID) {
         WHERE teamID = '${teamID}'
     `;
 
-    const [deletedTeam, _] = await promisePool.execute(sqlQuery);
-    return deletedTeam;
+    return promisePool.execute(sqlQuery);
 }
   
 }

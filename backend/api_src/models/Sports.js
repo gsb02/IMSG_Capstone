@@ -15,8 +15,8 @@ export default class Sport {
     FROM sports
     `;
 
-    const [Allsports, _] = await promisePool.execute(sqlQuery);
-    return Allsports;
+    
+    return promisePool.execute(sqlQuery);
 }
 
 static async getSportByID(sportID) {

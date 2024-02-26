@@ -9,9 +9,9 @@ export const getAllTeams = async (req, res, next) => {
 }
 
 export const createNewTeam = async (req, res, next) => {
-    let { teamID, teamName, teamDesc, sportID, gender, season } = req.body;
+    let { teamName, teamDesc, sportID, gender, season } = req.body;
 
-    let team = new Team(teamID, teamName, teamDesc, sportID, gender, season);
+    let team = new Team(null, teamName, teamDesc, sportID, gender, season);
     
     team = await team.createTeam();
     console.log(team)
