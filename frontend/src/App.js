@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route,} from "react-router-dom";
 import Equipment from "./pages/equipment";
 import Teams from "./pages/teams";
@@ -14,8 +13,8 @@ function App() {
     <div className="App">
       <ul id="links">
         <li><a id="li" href="./">Home</a></li>
-        <li><a id="li" href="./equip">Equipment</a></li>
         <li><a id="li" href="./teams">Teams</a></li>
+        <li><a id="li" href="./equip">Equipment</a></li>
         <li><a id="li" href="./players">Players</a></li>
         <li><a id="li" href="./settings">Settings</a></li>
         <li><a id="li" href="">Logoff</a></li>
