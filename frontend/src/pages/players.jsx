@@ -2,12 +2,19 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import './players.css';
-
+import Modal from './Modal.jsx';
 
 
 const Players = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [deletePlayerId, setDeletePlayerId] = useState(null);
     const [players, setPlayers] = useState([]);
     const [teamId, setTeamId] = useState('1');
+
+    const initiateDelete = (playerID) => {
+        setShowModal(true);
+        setDeletePlayerId(playerID);
+    };
 
     // Moved the fetching logic to its own function
     const fetchPlayers = async () => {
@@ -24,14 +31,19 @@ const Players = () => {
         fetchPlayers();
     }, [teamId]);
 
-    const handleDelete = async (playerID) => {
-        try {
-            await axios.delete(`http://localhost:3000/players/player${playerID}`);
-            setPlayers(players.filter(player => player.playerId !== playerID));
-        } catch (error) {
+    const handleDelete = async () => {
+        if (deletePlayerId !== null) {
+          try {
+            await axios.delete(`http://localhost:3000/players/player${deletePlayerId}`);
+            setPlayers(players.filter(player => player.playerId !== deletePlayerId));
+            // Reset and close modal
+            setShowModal(false);
+            setDeletePlayerId(null);
+          } catch (error) {
             console.error('There was an error deleting the player:', error);
+          }
         }
-    };
+      };
 
     const handleTeamIdChange = (event) => {
         setTeamId(event.target.value);
@@ -86,10 +98,13 @@ const Players = () => {
                         </td>
                         <td style={{ borderBottom: "1px solid black" }}>
                             <button>Edit</button>
-                            <button onClick={() => handleDelete(player.playerId)}>Delete</button>
+                            <button onClick={() => initiateDelete(player.playerId)}>Delete</button>
                         </td>
                     </tr>
                 ))}
+                <Modal isOpen={showModal} onClose={() => setShowModal(false)} onConfirm={handleDelete}>
+                    Are you sure you want to delete this player?
+                </Modal>
                 </tbody>
             </table>
         </div>
