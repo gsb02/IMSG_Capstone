@@ -1,0 +1,66 @@
+
+@media only screen and (min-width: 0rem) {
+    #reviews-355 .cs-container {
+        width: 100%;
+        max-width: 90rem;
+        margin-top: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(3rem, 6vw, 4rem);
+        text-decoration: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    #reviews-355 .cs-card-group {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: clamp(1rem, 2.5vw, 1.15rem);
+        text-decoration: none;
+    }
+    #reviews-355 .cs-item {
+        list-style: none;
+        width: 200px;
+        height: 100px;
+        margin: 0;
+        padding: clamp(1.5rem, 3.15vw, 2rem) clamp(1rem, 3.15vw, 2.5rem);
+        background-color: #f7f7f7;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center; /* Change align-items to center */
+        flex-direction: column;
+        position: relative;
+        text-decoration: none;
+    }
+    #reviews-355 .cs-item:hover {
+        transform: scale(1.05);
+    }
+   
+    #reviews-355 .cs-name {
+        font-size: clamp(1.25rem, 3vw, 1.5625rem);
+        line-height: 1.2em;
+        font-weight: 700;
+        margin: 0;
+        margin-top: auto;
+        color: var(--headerColor);
+        display: block;
+        color: black;
+        text-decoration: none;
+    }
+}
+
+@media only screen and (min-width: 48rem) {
+    #reviews-355 .cs-card-group {
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        flex-wrap: wrap;
+    }
+}
