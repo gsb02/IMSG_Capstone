@@ -1,19 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import "./home.css"
 
 const HomePage = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h1>Welcome to the UMaine Athletic Inventory Tracker</h1>
-      <Link to="/teams">
-        <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Teams</button>
-      </Link>
-      <Link to="/players">
-        <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Players</button>
-      </Link>
-      <Link to="/equip">
-        <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Equipment</button>
-      </Link>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <h1 style={{margin: '-1px', color: 'black'}}>University of Maine Athletic Inventory Tracker</h1>
+      <section id="reviews-355">
+        <div className="cs-container">
+          <ul className="cs-card-group">
+              <Link to="/teams" className="cs-item">
+                  <span className="cs-name">Teams</span>
+              </Link>
+              <Link to="/players" className="cs-item">
+                  <span className="cs-name">Players</span>
+              </Link>
+              <Link to="/equip" className="cs-item">
+                  <span className="cs-name">Equipment</span>
+              </Link>
+              
+              
+          </ul>
+        </div>
+      </section>
     </div>
   );
 };
