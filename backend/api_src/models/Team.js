@@ -37,8 +37,7 @@ export default class Team {
         )
         `;
 
-        const [newPost, _] = await promisePool.execute(sqlQuery);
-        return newPost;
+        return promisePool.execute(sqlQuery);
     }
 //READ
     static async getAllTeams() {
@@ -56,8 +55,7 @@ static async getTeamByID(teamID) {
     WHERE teamID = '${teamID}'
     `;
 
-    const [Allteams, _] = await promisePool.execute(sqlQuery);
-    return Allteams;
+    return promisePool.execute(sqlQuery);
 }
 
 
@@ -75,8 +73,7 @@ async updateTeam(teamID, teamName, teamDesc, sportID, gender, season) {
             season = '${season}'
         WHERE teamID = '${teamID}'
     `;
-    const [updatedTeam, _] = await promisePool.execute(sqlQuery);
-    return updatedTeam;
+    return promisePool.execute(sqlQuery);
 }
 
 //DELETE

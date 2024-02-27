@@ -26,7 +26,6 @@ static async getSportByID(sportID) {
     WHERE sportID = '${sportID}'
     `;
 
-    const [sport, _] = await promisePool.execute(sqlQuery);
-    return sport;
+    return promisePool.execute(sqlQuery);
 }
 }

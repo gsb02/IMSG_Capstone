@@ -36,8 +36,7 @@ export default class Order {
         )
         `;
 
-        const [newOrder, _] = await promisePool.execute(sqlQuery);
-        return newOrder;
+        return promisePool.execute(sqlQuery);
     }
 //READ
     static async getAllOrders() {
@@ -46,8 +45,7 @@ export default class Order {
     FROM orders
     `;
 
-    const [Allorders, _] = await promisePool.execute(sqlQuery);
-    return Allorders;
+    return promisePool.execute(sqlQuery);
 }
 
 static async getOrderByID(orderID) {
@@ -75,8 +73,7 @@ async updateOrder(orderID, orderDate, orderCost, arrivalDate, sportID) {
             arrivalDate = '${ arrivalDate}'
         WHERE orderID = '${orderID}'
     `;
-    const [updatedOrder, _] = await promisePool.execute(sqlQuery);
-    return updatedOrder;
+    return promisePool.execute(sqlQuery);
 }
 
 //DELETE
@@ -87,8 +84,7 @@ static async deleteOrder(orderID) {
         WHERE orderID = '${orderID}'
     `;
 
-    const [deletedOrder, _] = await promisePool.execute(sqlQuery);
-    return deletedOrder;
+    return promisePool.execute(sqlQuery);
 }
   
 }
