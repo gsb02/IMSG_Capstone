@@ -10,6 +10,8 @@ const Players = () => {
     const [deletePlayerId, setDeletePlayerId] = useState(null);
     const [players, setPlayers] = useState([]);
     const [teamId, setTeamId] = useState('1');
+    const [classFilter, setClassFilter] = useState('All');
+    const [nameFilter, setNameFilter] = useState('');
 
     const initiateDelete = (playerID) => {
         setShowModal(true);
@@ -49,6 +51,16 @@ const Players = () => {
         setTeamId(event.target.value);
     };
 
+    const handleClassFilterChange = (event) =>{
+        setClassFilter(event.target.value);
+    }
+
+    const filteredPlayers = players.filter((player) => {
+        const matchesClass = classFilter === 'All'  || player.class === classFilter;
+        const matchesName = player.playerName.toLowerCase().includes(nameFilter.toLowerCase());
+        return matchesClass && matchesName;
+    })
+
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
             <Link to="/addPlayer">
@@ -63,6 +75,20 @@ const Players = () => {
                 <option value="5">Women's Soccer</option>
                 <option value="6">Women's Softball</option>
             </select>
+            <select value={classFilter} onChange={handleClassFilterChange}>
+                <option value="All">All Classes</option>
+                <option value="FR">Freshman</option>
+                <option value="SO">Sophomore</option>
+                <option value="JR">Junior</option>
+                <option value="SR">Senior</option>
+            </select>
+            <input
+                type="text"
+                placeholder="Filter by name"
+                value={nameFilter}
+                onChange={(e) => setNameFilter(e.target.value)}
+                style={{margin: '10px 0', padding: '10px'}}
+            />
             <table style = {{ textAlign: "center",  backgroundColor: "white", borderStyle: "solid", margin: "5px", borderCollapse: "collapse"}}>
                 <thead>
                 <tr>
@@ -76,7 +102,7 @@ const Players = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {players.map((player, index) => (
+                {filteredPlayers.map((player, index) => (
                     <tr key={index}>
                         <td style={{ borderBottom: "1px solid black" }}>
                             {player.playerName}
