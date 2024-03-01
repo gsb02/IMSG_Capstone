@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.route("/").get(getAllTeams).post(createNewTeam);
 router.route("/:teamID").get(getTeamByID).delete(deleteTeam).put(updateTeam);
-
+//equipment
+router.route("/:teamID/equipment").get(getEquipmentByTeamID).post(assignEquipmentToTeam);
+router.route("/:teamID/equipment/:equipmentID").delete(removeEquipmentFromTeam);
 
 export default router;

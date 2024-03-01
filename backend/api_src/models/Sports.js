@@ -28,4 +28,40 @@ static async getSportByID(sportID) {
 
     return promisePool.execute(sqlQuery);
 }
+//Create
+    static async createSport() {
+
+        let sqlQuery = `
+        INSERT INTO sports(
+            sportName
+        )
+        VALUES(
+            '${this.sportName}'
+        )
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
+//Delete
+    static async deleteSportByID(sportID){
+
+        let sqlQuery = `
+        DELETE FROM sports
+        WHERE sportID = ${sportID}
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
+    //Update
+    static async updateSportByID(sportID, sportName){
+
+        let sqlQuery = `
+        UPDATE sports
+        SET sportName = '${sportName}'
+        WHERE sportID = ${sportID}
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
+    
 }

@@ -61,7 +61,7 @@ static async getTeamByID(teamID) {
 
 //UPDATE
 
-//gotta figure out what goes in as a parameter here
+
 async updateTeam(teamID, teamName, teamDesc, sportID, gender, season) {
     let sqlQuery = `
         UPDATE teams
@@ -86,6 +86,37 @@ static async deleteTeam(teamID) {
 
     return promisePool.execute(sqlQuery);
 }
+
+//assign equipment to a team
+static async assignEquipmentToTeam(teamID, equipmentID) {
+    let sqlQuery = `
+        INSERT INTO team_equipment (teamID, equipmentID)
+        VALUES ('${teamID}', '${equipmentID}')
+    `;
+
+    return promisePool.execute(sqlQuery);
+}
+//remove equipment from a team
+static async removeEquipmentFromTeam(teamID, equipmentID) {
+    let sqlQuery = `
+        DELETE FROM team_equipment
+        WHERE teamID = '${teamID}' AND equipmentID = '${equipmentID}'
+    `;
+
+    return promisePool.execute(sqlQuery);
   
 }
+//get all equipment assigned to a teamID
+static async getEquipmentByTeamID(teamID) {
+    let sqlQuery = `
+        SELECT * FROM team_equipment
+        WHERE teamID = '${teamID}'
+    `;
 
+    return promisePool.execute(sqlQuery);
+
+
+}
+
+
+}

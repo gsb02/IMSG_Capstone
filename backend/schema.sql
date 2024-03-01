@@ -44,7 +44,7 @@ DROP TABLE IF EXISTS `equipment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `equipment` (
-  `equipmentId` smallint NOT NULL AUTO_INCREMENT,
+  `equipmentID` smallint NOT NULL AUTO_INCREMENT,
   `equipmentName` varchar(255) NOT NULL,
   `storedQuantity` smallint NOT NULL,
   `distQuantity` smallint NOT NULL,
@@ -52,9 +52,9 @@ CREATE TABLE `equipment` (
   `equipmentType` smallint NOT NULL,
   `lastOrdered` date DEFAULT NULL,
   `lastDistributed` date DEFAULT NULL,
-  PRIMARY KEY (`equipmentId`),
+  PRIMARY KEY (`equipmentID`),
   KEY `sportID_idx` (`sportID`),
-  CONSTRAINT `equipmentSportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportId`)
+  CONSTRAINT `equipmentSportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -66,14 +66,14 @@ DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
-  `orderId` smallint NOT NULL AUTO_INCREMENT,
+  `orderID` smallint NOT NULL AUTO_INCREMENT,
   `orderDate` date NOT NULL,
   `orderCost` decimal(10,2) NOT NULL,
   `arrivalDate` date DEFAULT NULL,
   `sportId` smallint NOT NULL,
-  PRIMARY KEY (`orderId`),
-  KEY `orderSportID_idx` (`sportId`),
-  CONSTRAINT `orderSportID` FOREIGN KEY (`sportId`) REFERENCES `sports` (`sportId`)
+  PRIMARY KEY (`orderID`),
+  KEY `orderSportID_idx` (`sportID`),
+  CONSTRAINT `orderSportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `players`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `players` (
-  `playerId` smallint NOT NULL AUTO_INCREMENT,
+  `playerID` smallint NOT NULL AUTO_INCREMENT,
   `playerName` varchar(255) NOT NULL,
   `teamID` smallint NOT NULL,
   `age` smallint DEFAULT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE `players` (
   `jerseyNum` smallint DEFAULT NULL,
   PRIMARY KEY (`playerId`),
   KEY `teamID_idx` (`teamID`),
-  CONSTRAINT `teamID` FOREIGN KEY (`teamID`) REFERENCES `teams` (`teamId`)
+  CONSTRAINT `teamID` FOREIGN KEY (`teamID`) REFERENCES `teams` (`teamID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -106,16 +106,16 @@ DROP TABLE IF EXISTS `sizebreakdowns`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sizebreakdowns` (
-  `sizeBreakdownId` smallint NOT NULL AUTO_INCREMENT,
-  `equipmentId` smallint NOT NULL,
+  `sizeBreakdownID` smallint NOT NULL AUTO_INCREMENT,
+  `equipmentID` smallint NOT NULL,
   `small` smallint DEFAULT NULL,
   `med` smallint DEFAULT NULL,
   `large` smallint DEFAULT NULL,
   `size2x` smallint DEFAULT NULL,
   `size3x` smallint DEFAULT NULL,
   `anythingElse` char(50) DEFAULT NULL,
-  PRIMARY KEY (`sizeBreakdownId`),
-  UNIQUE KEY `equipmentId` (`equipmentId`)
+  PRIMARY KEY (`sizeBreakdownID`),
+  UNIQUE KEY `equipmentID` (`equipmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -127,9 +127,9 @@ DROP TABLE IF EXISTS `sports`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sports` (
-  `sportId` smallint NOT NULL AUTO_INCREMENT,
+  `sportID` smallint NOT NULL AUTO_INCREMENT,
   `sportName` varchar(255) NOT NULL,
-  PRIMARY KEY (`sportId`)
+  PRIMARY KEY (`sportID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -145,6 +145,8 @@ INSERT INTO `sports` (sportName) VALUES
 ('Swimming & Diving'),
 ('Track, Field & XC');
 
+
+
 --
 -- Table structure for table `teams`
 --
@@ -153,17 +155,41 @@ DROP TABLE IF EXISTS `teams`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `teams` (
-  `teamId` smallint NOT NULL AUTO_INCREMENT,
+  `teamID` smallint NOT NULL AUTO_INCREMENT,
   `teamName` varchar(255) NOT NULL,
   `teamDesc` text,
   `sportID` smallint NOT NULL,
   `gender` char(1) DEFAULT NULL,
   `season` year DEFAULT NULL,
-  PRIMARY KEY (`teamId`),
+  PRIMARY KEY (`teamID`),
   KEY `sportID_idx` (`sportID`),
-  CONSTRAINT `sportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportId`)
+  CONSTRAINT `sportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `team_equipment`
+--
+// This table is a many-to-many relationship between teams and equipment
+DROP TABLE IF EXISTS `team_equipment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `team_equipment` (
+  `teamID` smallint NOT NULL,
+  `equipmentID` smallint NOT NULL,
+  `quantity` smallint NOT NULL,
+  PRIMARY KEY (`teamID`,`equipmentID`),
+  KEY `equipmentID_idx` (`equipmentID`),
+  CONSTRAINT `teamID` FOREIGN KEY (`teamID`) REFERENCES `teams` (`teamID`),
+  CONSTRAINT `equipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `player_equipment`
+
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

@@ -69,4 +69,42 @@ export const updateTeam = async (req, res, next) => {
 
         res.status(500).json({ error: 'Failed to update team' });
     }
+
+
 }
+
+//assign equipment to a team 
+export const assignEquipmentToTeam = async (req, res, next) => {
+    //res.send("assign equipment to a team");
+    try{
+    let teamID = req.params.teamID;
+
+    let [team, _] = await Team.assignEquipmentToTeam(teamID, equipmentID);
+    res.status(200).json(team);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to assign equipment to team' });
+    }
+}
+
+////remove equipment from a team 
+export const removeEquipmentFromTeam = async (req, res, next) => {
+    try{
+    let teamID = req.params.teamID;
+    let [team, _] = await Team.removeEquipmentFromTeam(teamID, equipmentID);
+    res.status(200).json(team);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to remove equipment from team' });
+    }
+}
+
+//get all equipment assigned to a teamID
+export const getEquipmentByTeamID = async (req, res, next) => {
+    try{
+    let teamID = req.params.teamID;
+    let [team, _] = await Team.getEquipmentByTeamID(teamID);
+    res.status(200).json(team);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get equipment by teamID' });
+    }
+}
+

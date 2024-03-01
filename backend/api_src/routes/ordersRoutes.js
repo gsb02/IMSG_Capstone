@@ -7,7 +7,7 @@ const router = express.Router();
 //Gotta figure out how to do the delete and update in here
 
 router.route("/").get(getAllOrders).post(createNewOrder);
-router.route("/:order").get(getOrderByID).delete(deleteOrder).put(updateOrder);
+router.route("/:orderID").get(getOrderByID).delete(deleteOrder).put(updateOrder);
 
 
 export default router;
