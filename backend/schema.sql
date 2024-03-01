@@ -170,7 +170,6 @@ CREATE TABLE `teams` (
 --
 -- Table structure for table `team_equipment`
 --
-// This table is a many-to-many relationship between teams and equipment
 DROP TABLE IF EXISTS `team_equipment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -180,8 +179,8 @@ CREATE TABLE `team_equipment` (
   `quantity` smallint NOT NULL,
   PRIMARY KEY (`teamID`,`equipmentID`),
   KEY `equipmentID_idx` (`equipmentID`),
-  CONSTRAINT `teamID` FOREIGN KEY (`teamID`) REFERENCES `teams` (`teamID`),
-  CONSTRAINT `equipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
+  CONSTRAINT `team_equipment_teamID` FOREIGN KEY (`teamID`) REFERENCES `teams` (`teamID`),
+  CONSTRAINT `team_equipment_equipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
