@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllSports, getSportByID, } from '../controllers/sportsControllers.js';
+import { getAllSports, getSportByID, deleteSportByID, updateSportByID} from '../controllers/sportsControllers.js';
 const router = express.Router();
 
 // @route GET && POST - /posts/

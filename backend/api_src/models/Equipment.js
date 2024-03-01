@@ -57,7 +57,7 @@ export default class Equipment {
         let sqlQuery = `
         SELECT equipmentType
         FROM equipment
-        WHERE equipmentID = ${equipmentID}
+        WHERE equipmentID = '${equipmentID}'
         `;
 
         const [result, _] = await promisePool.execute(sqlQuery);
@@ -67,10 +67,46 @@ export default class Equipment {
     static async deleteEquipmentByID(equipmentID){
         let sqlQuery = `
         DELETE FROM equipment
-        WHERE equipmentID = ${equipmentID}
+        WHERE equipmentID = '${equipmentID}'
         `;
 
         return promisePool.execute(sqlQuery);
 
+    }
+
+    static async getAllEquipment(){
+        let sqlQuery = `
+        SELECT * FROM equipment
+        `;
+
+        return promisePool.execute(sqlQuery);
+
+    }
+
+    static async getAllEquipmentByType(equipmentType){
+        let sqlQuery = `
+        SELECT * FROM equipment
+        WHERE equipmentType = '${equipmentType}'
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
+
+    static async getEquipmentPrimaryAttributesByID(equipmentID){
+        let sqlQuery = `
+        SELECT * FROM equipment
+        WHERE equipmentID = '${equipmentID}'
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
+
+    static async getEquipmentSecondaryAttributesByID(subTable, equipmentID){
+        let sqlQuery = `
+        SELECT * FROM ${subTable}
+        WHERE equipmentID = ${equipmentID}
+        `;
+
+        return promisePool.execute(sqlQuery);
     }
 }
