@@ -23,5 +23,5 @@ jobs:
       - name: Build the stack
         run: docker-compose -f backend/docker-compose.yml up -d
       - name: Test
-        run: docker run --network container:api appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3001/
+        run: docker run --network container:backend_api_1 appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3001/
 
