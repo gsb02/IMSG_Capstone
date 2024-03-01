@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route,} from "react-router-dom";
 import Equipment from "./pages/equipment";
 import Teams from "./pages/teams";
