@@ -14,7 +14,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
       - name: Build the stack
         run: docker-compose -f backend/docker-compose.yml up -d
       - name: Test
