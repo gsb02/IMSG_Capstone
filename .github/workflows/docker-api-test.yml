@@ -23,5 +23,12 @@ jobs:
       - name: Build the stack
         run: docker-compose -f backend/docker-compose.yml up -d
       - name: Test
-        run: docker run --network container:backend_api_1 appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3001/
+        run: |
+          response=$(docker run --network container:backend_api_1 appropriate/curl -s http://localhost:3000)
+          if [ "$response" = "api is running" ]; then
+            echo "API is running"
+          else
+            echo "API is not running"
+            exit 1
+          fi
 
