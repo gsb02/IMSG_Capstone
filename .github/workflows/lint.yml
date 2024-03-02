@@ -1,29 +1,51 @@
-# This is a basic workflow to help you get started with Actions
+# # This is a basic workflow to help you get started with Actions
+
+# name: Linting Workflow
+
+# # Controls when the workflow will run
+# on:
+#   # Triggers the workflow on push or pull request events but only for the "main" branch
+#   push:
+#     branches: [ "main","dev" ]
+#   pull_request:
+#     branches: [ "main", "dev" ]
+#   workflow_dispatch:
+    
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Install modules
+#       run: npm install
+#     - name: Run ESLint
+#       run: eslint . --ext .js,.jsx,.ts,.tsx
+#   eslint:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v1
+#       - uses: stefanoeb/eslint-action@1.0.2
+#         with:
+#           files: frontend/src/
 
 name: Linting Workflow
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main","dev" ]
   pull_request:
     branches: [ "main", "dev" ]
   workflow_dispatch:
-    
+
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
-    # - uses: actions/checkout@v2
-    # - name: Install modules
-    #   run: yarn
-    - name: Run ESLint
-      run: eslint . --ext .js,.jsx,.ts,.tsx
-  eslint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: stefanoeb/eslint-action@1.0.2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          files: frontend/src/
+          node-version: '14' # Or whatever version you're using
+      - name: Install modules
+        run: npm ci
+      - name: Run ESLint
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx
