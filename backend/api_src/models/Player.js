@@ -93,5 +93,38 @@ export default class Player {
 
         return promisePool.execute(sqlQuery);
     }
+
+    static async assignEquipmentToPlayer(playerID, equipmentID) {
+        let sqlQuery = `
+            INSERT INTO player_equipment (playerID, equipmentID)
+            VALUES ('${playerID}', '${equipmentID}')
+        `;
+    
+        return promisePool.execute(sqlQuery);
+    }
+    
+    //remove equipment from a player
+    static async removeEquipmentFromPlayer(playerID, equipmentID) {
+        let sqlQuery = `
+            DELETE FROM player_equipment
+            WHERE playerID = '${playerID}' AND equipmentID = '${equipmentID}'
+        `;
+    
+        return promisePool.execute(sqlQuery);
+    }
+    
+    //get all equipment assigned to a playerID
+    static async getEquipmentByPlayerID(playerID) {
+        let sqlQuery = `
+            SELECT equipment.*
+            FROM equipment
+            INNER JOIN player_equipment ON player_equipment.equipmentID = equipment.equipmentID
+            WHERE player_equipment.playerID = ${playerID}
+            `;
+    
+        return promisePool.execute(sqlQuery);
+    }
+
+
 }
 

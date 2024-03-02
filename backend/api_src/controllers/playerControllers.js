@@ -74,3 +74,40 @@ export const updatePlayerByID = async (req, res, next) => {
         res.status(500).json({ error: 'Failed to update player' });
     }
 };
+
+export const assignEquipmentToPlayer = async (req, res, next) => {
+    try {
+        let playerID = req.params.playerID;
+        let equipmentID = req.body.equipmentID;
+
+        let [player, _] = await Player.assignEquipmentToPlayer(playerID, equipmentID);
+        res.status(200).json(player);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to assign equipment to player' });
+    }
+}
+
+//remove equipment from a player
+export const removeEquipmentFromPlayer = async (req, res, next) => {
+    try {
+        let playerID = req.params.playerID;
+        let equipmentID = req.body.equipmentID;
+
+        let [player, _] = await Player.removeEquipmentFromPlayer(playerID, equipmentID);
+        res.status(200).json(player);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to remove equipment from player' });
+    }
+}
+
+//get all equipment assigned to a playerID
+export const getEquipmentByPlayerID = async (req, res, next) => {
+    try {
+        let playerID = req.params.playerID;
+
+        let [player, _] = await Player.getEquipmentByPlayerID(playerID);
+        res.status(200).json(player);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get equipment by playerID' });
+    }
+}

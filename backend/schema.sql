@@ -182,6 +182,19 @@ CREATE TABLE `team_equipment` (
   CONSTRAINT `team_equipment_teamID` FOREIGN KEY (`teamID`) REFERENCES `teams` (`teamID`),
   CONSTRAINT `team_equipment_equipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `player_equipment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `player_equipment` (
+  `playerID` smallint NOT NULL,
+  `equipmentID` smallint NOT NULL,
+  `quantity` smallint NOT NULL,
+  PRIMARY KEY (`playerID`,`equipmentID`),
+  KEY `equipmentID_idx` (`equipmentID`),
+  CONSTRAINT `player_equipment_playerID` FOREIGN KEY (`playerID`) REFERENCES `players` (`playerID`),
+  CONSTRAINT `player_equipment_equipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
