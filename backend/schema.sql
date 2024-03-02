@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `apparel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `apparel` (
-  `id` smallint NOT NULL AUTO_INCREMENT,
+  `ID` smallint NOT NULL AUTO_INCREMENT,
   `brandName` varchar(255) NOT NULL,
   `equipmentID` int NOT NULL,
   `quantitySmall` int NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE `apparel` (
   `quantityXL` int NOT NULL,
   `quantity2XL` int NOT NULL,
   `quantity3XL` int NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,7 +55,7 @@ CREATE TABLE `equipment` (
   PRIMARY KEY (`equipmentID`),
   KEY `sportID_idx` (`sportID`),
   CONSTRAINT `equipmentSportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,11 +70,11 @@ CREATE TABLE `orders` (
   `orderDate` date NOT NULL,
   `orderCost` decimal(10,2) NOT NULL,
   `arrivalDate` date DEFAULT NULL,
-  `sportId` smallint NOT NULL,
+  `sportID` smallint NOT NULL,
   PRIMARY KEY (`orderID`),
   KEY `orderSportID_idx` (`sportID`),
   CONSTRAINT `orderSportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,10 +92,10 @@ CREATE TABLE `players` (
   `class` char(2) DEFAULT NULL,
   `isCoach` tinyint(1) NOT NULL,
   `jerseyNum` smallint DEFAULT NULL,
-  PRIMARY KEY (`playerId`),
+  PRIMARY KEY (`playerID`),
   KEY `teamID_idx` (`teamID`),
   CONSTRAINT `teamID` FOREIGN KEY (`teamID`) REFERENCES `teams` (`teamID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +116,7 @@ CREATE TABLE `sizebreakdowns` (
   `anythingElse` char(50) DEFAULT NULL,
   PRIMARY KEY (`sizeBreakdownID`),
   UNIQUE KEY `equipmentID` (`equipmentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +130,7 @@ CREATE TABLE `sports` (
   `sportID` smallint NOT NULL AUTO_INCREMENT,
   `sportName` varchar(255) NOT NULL,
   PRIMARY KEY (`sportID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -164,7 +164,7 @@ CREATE TABLE `teams` (
   PRIMARY KEY (`teamID`),
   KEY `sportID_idx` (`sportID`),
   CONSTRAINT `sportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

@@ -108,10 +108,17 @@ static async removeEquipmentFromTeam(teamID, equipmentID) {
 }
 //get all equipment assigned to a teamID
 static async getEquipmentByTeamID(teamID) {
+    // let sqlQuery = `
+    //     SELECT * FROM team_equipment
+    //     WHERE teamID = '${teamID}'
+    // `;
+
     let sqlQuery = `
-        SELECT * FROM team_equipment
-        WHERE teamID = '${teamID}'
-    `;
+        SELECT equipment.*
+        FROM equipment
+        INNER JOIN team_equipment ON team_equipment.equipmentID = equipment.equipmentID
+        WHERE team_equipment.teamID = ${teamID}
+        `;
 
     return promisePool.execute(sqlQuery);
 
