@@ -47,6 +47,8 @@ jobs:
           node-version: '21.6.0'
       - name: Change to correct directory
         run: cd frontend
+      - name: list files for debug 
+        run: ls
       - name: Install modules
         run: npm ci
       - name: Run ESLint
