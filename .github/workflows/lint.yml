@@ -48,7 +48,7 @@ jobs:
       - name: list files for debug 
         run: ls
       - name: Change to correct directory
-        run: cd frontend
+        run: cd ./frontend
       - name: list files for debug 
         run: ls
       - name: Install modules
