@@ -1,6 +1,7 @@
 import Equipment from "../models/Equipment.js";
 import Apparel from "../models/Apparel.js";
 import Shoe from "../models/Shoe.js";
+import Jersey from "../models/Jersey.js";
 
 export const createEquipment = async (req, res, next) => {
 
@@ -24,6 +25,12 @@ export const createEquipment = async (req, res, next) => {
                 apparel = await apparel.createApparel();
                 console.log(apparel);
                 break;
+            
+
+            //accessory
+            case 2:
+                //no sub attributes for accessories
+                break;
 
             //shoes
             case 3:
@@ -37,10 +44,41 @@ export const createEquipment = async (req, res, next) => {
                 shoe = await shoe.createShoe();
                 console.log(shoe);
                 break;
+            
+            //jersey
+            case 4:
+                let { color, jerseyNumbers } = attributes;
+                let { smallJerseys, mediumJerseys, largeJerseys, xlJerseys } = jerseyNumbers;
+
+                for(let i = 0; i < smallJerseys.length; i++){
+                    let jersey = new Jersey(null, equipmentID, color, 'S', smallJerseys[i]);
+                    jersey = await jersey.createJersey();
+                }
+
+                for(let i = 0; i < mediumJerseys.length; i++){
+                    let jersey = new Jersey(null, equipmentID, color, 'M', mediumJerseys[i]);
+                    jersey = await jersey.createJersey();
+                }
+
+                for(let i = 0; i < largeJerseys.length; i++){
+                    let jersey = new Jersey(null, equipmentID, color, 'L', largeJerseys[i]);
+                    jersey = await jersey.createJersey();
+                }
+                
+                for(let i = 0; i < xlJerseys.length; i++){
+                    let jersey = new Jersey(null, equipmentID, color, 'XL', xlJerseys[i]);
+                    jersey = await jersey.createJersey();
+                }
+
+                break;
+
+            default:
+                break;
+
         }
 
         res.status(200).json(equipment);
-        
+
     } catch(error){
         console.log(error);
         res.status(500).json({error: "error creating equipment"})
@@ -65,9 +103,20 @@ export const deleteEquipmentByID = async (req, res, next) => {
                 let apparel = await Apparel.deleteApparelByEquipmentID(equipmentID);
                 break;
             
+            //accessory
+            case 2:
+                break;
+
             //shoes
             case 3:
                 let shoe = await Shoe.deleteShoeByEquipmentID(equipmentID);
+                break;
+
+            case 4:
+                let jersey = await Jersey.deleteJerseysByID(equipmentID);
+                break;
+
+            default:
                 break;
         }
         res.status(200).json(equipment);
@@ -136,12 +185,17 @@ export const getEquipmentSecondaryAttributesByID = async (req, res, next) => {
                 res.status(200).json(apparel[0]);
                 break;
 
-
+            case 2:
+                break;
             //shoe
             case 3:
                 let shoe = await Shoe.getSecondaryAttributesByID(equipmentID);
                 res.status(200).json(shoe[0]);
 
+
+            case 4:
+                let jersey = await Jersey.getSecondaryAttributesByID(equipmentID);
+                res.status(200).json(jersey[0]);
 
             default:
                 break;
@@ -157,9 +211,10 @@ export const getEquipmentSecondaryAttributesByID = async (req, res, next) => {
 export const getAllEquipmentTypes = async (req, res, next) => {
         try{
 
-            let [types, _] = Equipment.getAllEquipmentTypes();
+            let [types, _] = await Equipment.getAllEquipmentTypes();
             res.status(200).json(types);
         } catch (error){
+            console.log(error);
             res.status(500).json({error: "failed to get equipment types"});
         }
 }
