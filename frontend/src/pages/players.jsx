@@ -12,13 +12,13 @@ const Players = () => {
     const [teamId, setTeamId] = useState('1');
     const [classFilter, setClassFilter] = useState('All');
     const [nameFilter, setNameFilter] = useState('');
+    const [ageFilter, setAgeFilter] = useState('');
 
     const initiateDelete = (playerID) => {
         setShowModal(true);
         setDeletePlayerId(playerID);
     };
 
-    // Moved the fetching logic to its own function
     const fetchPlayers = async () => {
         try {
             const response = await axios.get(`http://localhost:3000/players/team${teamId}`);
@@ -55,10 +55,15 @@ const Players = () => {
         setClassFilter(event.target.value);
     }
 
+    const handleAgeFilterChange = (event) => {
+        setAgeFilter(event.target.value);
+    }
+
     const filteredPlayers = players.filter((player) => {
         const matchesClass = classFilter === 'All'  || player.class === classFilter;
         const matchesName = player.playerName.toLowerCase().includes(nameFilter.toLowerCase());
-        return matchesClass && matchesName;
+        const matchesAge = ageFilter === '' || player.age === parseInt(ageFilter);
+        return matchesClass && matchesName && matchesAge;
     })
 
     return (
@@ -87,6 +92,13 @@ const Players = () => {
                 placeholder="Filter by name"
                 value={nameFilter}
                 onChange={(e) => setNameFilter(e.target.value)}
+                style={{margin: '10px 0', padding: '10px'}}
+            />
+            <input
+                type="number"
+                placeholder="Filter by age"
+                value={ageFilter}
+                onChange={handleAgeFilterChange}
                 style={{margin: '10px 0', padding: '10px'}}
             />
             <table style = {{ textAlign: "center",  backgroundColor: "white", borderStyle: "solid", margin: "5px", borderCollapse: "collapse"}}>
