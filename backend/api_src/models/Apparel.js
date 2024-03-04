@@ -51,4 +51,13 @@ export default class Apparel {
 
         return promisePool.execute(sqlQuery);
     }
+
+    static async getSecondaryAttributesByID(equipmentID){
+        let sqlQuery = `
+            SELECT * FROM apparel
+            WHERE equipmentID = ${equipmentID}
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
 }

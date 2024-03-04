@@ -7,6 +7,7 @@ import AddTeams from './pages/addTeam';
 import HomePage from './pages/home';
 import Players from './pages/players';
 import "./style.css"
+import "./style.css";
 function App() {
   
   return (

@@ -109,4 +109,12 @@ export default class Equipment {
 
         return promisePool.execute(sqlQuery);
     }
+
+    static async getAllEquipmentTypes(){
+        let sqlQuery = `
+        SELECT * FROM equipment_types;
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
 }
