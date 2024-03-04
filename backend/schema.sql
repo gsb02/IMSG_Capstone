@@ -32,9 +32,19 @@ CREATE TABLE `apparel` (
   `quantityXL` int NOT NULL,
   `quantity2XL` int NOT NULL,
   `quantity3XL` int NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `apparelEquipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `apparel`
+--
+
+LOCK TABLES `apparel` WRITE;
+/*!40000 ALTER TABLE `apparel` DISABLE KEYS */;
+/*!40000 ALTER TABLE `apparel` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `equipment`
@@ -55,8 +65,70 @@ CREATE TABLE `equipment` (
   PRIMARY KEY (`equipmentID`),
   KEY `sportID_idx` (`sportID`),
   CONSTRAINT `equipmentSportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `equipmentType` FOREIGN KEY (`equipmentType`) REFERENCES `equipment_types` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equipment`
+--
+
+LOCK TABLES `equipment` WRITE;
+/*!40000 ALTER TABLE `equipment` DISABLE KEYS */;
+INSERT INTO `equipment` VALUES (1,'Example Equipment',100,50,2,3,'2023-10-15','2023-11-05'),(2,'Example Equipment',100,50,2,3,'2023-10-15','2023-11-05'),(3,'Example Equipment',100,50,2,3,'2023-10-15','2023-11-05'),(4,'Example Equipment',100,50,2,3,'2023-10-15','2023-11-05'),(6,'Example Equipment',100,50,2,3,'2023-10-15','2023-11-05'),(7,'Example Equipment',100,50,2,4,'2023-10-15','2023-11-05'),(8,'Example Equipment',100,50,2,4,'2023-10-15','2023-11-05'),(9,'Example Equipment',100,50,2,4,'2023-10-15','2023-11-05'),(10,'Example Equipment',100,50,2,4,'2023-10-15','2023-11-05'),(11,'Example Equipment',100,50,2,4,'2023-10-15','2023-11-05'),(12,'Example jersey',100,50,2,4,'2023-10-15','2023-11-05'),(13,'Example jersey',100,50,2,4,'2023-10-15','2023-11-05');
+/*!40000 ALTER TABLE `equipment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `equipment_types`
+--
+
+DROP TABLE IF EXISTS `equipment_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `equipment_types` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `type` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equipment_types`
+--
+
+LOCK TABLES `equipment_types` WRITE;
+/*!40000 ALTER TABLE `equipment_types` DISABLE KEYS */;
+INSERT INTO `equipment_types` VALUES (1,'apparel'),(2,'accessory'),(3,'shoe'),(4,'uniforms');
+/*!40000 ALTER TABLE `equipment_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jerseys`
+--
+
+DROP TABLE IF EXISTS `jerseys`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jerseys` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `equipmentID` int NOT NULL,
+  `color` varchar(50) NOT NULL,
+  `size` varchar(20) NOT NULL,
+  `jerseyNum` int NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `jerseyEquipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jerseys`
+--
+
+LOCK TABLES `jerseys` WRITE;
+/*!40000 ALTER TABLE `jerseys` DISABLE KEYS */;
+/*!40000 ALTER TABLE `jerseys` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `orders`
@@ -74,8 +146,44 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`orderID`),
   KEY `orderSportID_idx` (`sportID`),
   CONSTRAINT `orderSportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `player_equipment`
+--
+
+DROP TABLE IF EXISTS `player_equipment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `player_equipment` (
+  `playerID` smallint NOT NULL,
+  `equipmentID` smallint NOT NULL,
+  `quantity` smallint NOT NULL,
+  PRIMARY KEY (`playerID`,`equipmentID`),
+  KEY `equipmentID_idx` (`equipmentID`),
+  CONSTRAINT `player_equipment_equipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`),
+  CONSTRAINT `player_equipment_playerID` FOREIGN KEY (`playerID`) REFERENCES `players` (`playerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `player_equipment`
+--
+
+LOCK TABLES `player_equipment` WRITE;
+/*!40000 ALTER TABLE `player_equipment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `player_equipment` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `players`
@@ -95,8 +203,57 @@ CREATE TABLE `players` (
   PRIMARY KEY (`playerID`),
   KEY `teamID_idx` (`teamID`),
   CONSTRAINT `teamID` FOREIGN KEY (`teamID`) REFERENCES `teams` (`teamID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `players`
+--
+
+LOCK TABLES `players` WRITE;
+/*!40000 ALTER TABLE `players` DISABLE KEYS */;
+/*!40000 ALTER TABLE `players` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `shoes`
+--
+
+DROP TABLE IF EXISTS `shoes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `shoes` (
+  `name` varchar(255) DEFAULT NULL,
+  `q_6` int DEFAULT NULL,
+  `q_6_5` int DEFAULT NULL,
+  `q_7` int DEFAULT NULL,
+  `q_7_5` int DEFAULT NULL,
+  `q_8` int DEFAULT NULL,
+  `q_8_5` int DEFAULT NULL,
+  `q_9` int DEFAULT NULL,
+  `q_9_5` int DEFAULT NULL,
+  `q_10` int DEFAULT NULL,
+  `q_10_5` int DEFAULT NULL,
+  `q_11` int DEFAULT NULL,
+  `q_11_5` int DEFAULT NULL,
+  `q_12` int DEFAULT NULL,
+  `q_12_5` int DEFAULT NULL,
+  `q_13` int DEFAULT NULL,
+  `width` varchar(10) DEFAULT NULL,
+  `equipmentID` int DEFAULT NULL,
+  CONSTRAINT `shoeEquipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shoes`
+--
+
+LOCK TABLES `shoes` WRITE;
+/*!40000 ALTER TABLE `shoes` DISABLE KEYS */;
+INSERT INTO `shoes` VALUES ('Example Shoe',10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,NULL,6);
+/*!40000 ALTER TABLE `shoes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `sizebreakdowns`
@@ -116,8 +273,17 @@ CREATE TABLE `sizebreakdowns` (
   `anythingElse` char(50) DEFAULT NULL,
   PRIMARY KEY (`sizeBreakdownID`),
   UNIQUE KEY `equipmentID` (`equipmentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sizebreakdowns`
+--
+
+LOCK TABLES `sizebreakdowns` WRITE;
+/*!40000 ALTER TABLE `sizebreakdowns` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sizebreakdowns` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `sports`
@@ -130,22 +296,45 @@ CREATE TABLE `sports` (
   `sportID` smallint NOT NULL AUTO_INCREMENT,
   `sportName` varchar(255) NOT NULL,
   PRIMARY KEY (`sportID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `sports`
+--
 
-INSERT INTO `sports` (sportName) VALUES 
-('Baseball'),
-('Basketball'),
-('Field Hockey'),
-('Football'),
-('Ice Hockey'),
-('Soccer'),
-('Softball'),
-('Swimming & Diving'),
-('Track, Field & XC');
+LOCK TABLES `sports` WRITE;
+/*!40000 ALTER TABLE `sports` DISABLE KEYS */;
+INSERT INTO `sports` VALUES (1,'Baseball'),(2,'Basketball'),(3,'Field Hockey'),(4,'Football'),(5,'Ice Hockey'),(6,'Soccer'),(7,'Softball'),(8,'Swimming & Diving'),(9,'Track, Field & XC');
+/*!40000 ALTER TABLE `sports` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `team_equipment`
+--
 
+DROP TABLE IF EXISTS `team_equipment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `team_equipment` (
+  `teamID` smallint NOT NULL,
+  `equipmentID` smallint NOT NULL,
+  `quantity` smallint NOT NULL,
+  PRIMARY KEY (`teamID`,`equipmentID`),
+  KEY `equipmentID_idx` (`equipmentID`),
+  CONSTRAINT `team_equipment_equipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`),
+  CONSTRAINT `team_equipment_teamID` FOREIGN KEY (`teamID`) REFERENCES `teams` (`teamID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `team_equipment`
+--
+
+LOCK TABLES `team_equipment` WRITE;
+/*!40000 ALTER TABLE `team_equipment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `team_equipment` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `teams`
@@ -164,44 +353,17 @@ CREATE TABLE `teams` (
   PRIMARY KEY (`teamID`),
   KEY `sportID_idx` (`sportID`),
   CONSTRAINT `sportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `team_equipment`
---
-DROP TABLE IF EXISTS `team_equipment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `team_equipment` (
-  `teamID` smallint NOT NULL,
-  `equipmentID` smallint NOT NULL,
-  `quantity` smallint NOT NULL,
-  PRIMARY KEY (`teamID`,`equipmentID`),
-  KEY `equipmentID_idx` (`equipmentID`),
-  CONSTRAINT `team_equipment_teamID` FOREIGN KEY (`teamID`) REFERENCES `teams` (`teamID`),
-  CONSTRAINT `team_equipment_equipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-DROP TABLE IF EXISTS `player_equipment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `player_equipment` (
-  `playerID` smallint NOT NULL,
-  `equipmentID` smallint NOT NULL,
-  `quantity` smallint NOT NULL,
-  PRIMARY KEY (`playerID`,`equipmentID`),
-  KEY `equipmentID_idx` (`equipmentID`),
-  CONSTRAINT `player_equipment_playerID` FOREIGN KEY (`playerID`) REFERENCES `players` (`playerID`),
-  CONSTRAINT `player_equipment_equipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `player_equipment`
+-- Dumping data for table `teams`
+--
 
-
-
+LOCK TABLES `teams` WRITE;
+/*!40000 ALTER TABLE `teams` DISABLE KEYS */;
+/*!40000 ALTER TABLE `teams` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -211,5 +373,3 @@ CREATE TABLE `player_equipment` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2024-02-21 21:23:20

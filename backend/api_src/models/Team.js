@@ -106,6 +106,7 @@ static async removeEquipmentFromTeam(teamID, equipmentID) {
     return promisePool.execute(sqlQuery);
   
 }
+
 //get all equipment assigned to a teamID
 static async getEquipmentByTeamID(teamID) {
     // let sqlQuery = `
