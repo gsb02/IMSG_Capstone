@@ -46,10 +46,10 @@ const Teams = () => {
                             {team.teamName}
                         </td>
                         <td style={{ borderBottom: "1px solid black" }}>
-                            <Link to="/addPlayer" state={{ teamId: team.teamId }}>
+                            <Link to="/addPlayer" state={{ teamId: team.teamId, teamName: team.teamName }}>
                                 <button>Add Player</button>
                             </Link>
-                            <Link to="/players" state={{teamId: team.teamId}}>
+                            <Link to="/players" state={{teamId: team.teamId, teamName: team.teamName}}>
                             <button>View Roster</button>
                             </Link>   
                             <button>Edit</button>      
