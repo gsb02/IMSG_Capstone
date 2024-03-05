@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `apparel`;
 CREATE TABLE `apparel` (
   `ID` smallint NOT NULL AUTO_INCREMENT,
   `brandName` varchar(255) NOT NULL,
-  `equipmentID` int NOT NULL,
+  `equipmentID` smallint NOT NULL,
   `quantitySmall` int NOT NULL,
   `quantityMedium` int NOT NULL,
   `quantityLarge` int NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE `equipment` (
   `lastDistributed` date DEFAULT NULL,
   PRIMARY KEY (`equipmentID`),
   KEY `sportID_idx` (`sportID`),
-  CONSTRAINT `equipmentSportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`)
+  CONSTRAINT `equipmentSportID` FOREIGN KEY (`sportID`) REFERENCES `sports` (`sportID`),
   CONSTRAINT `equipmentType` FOREIGN KEY (`equipmentType`) REFERENCES `equipment_types` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -87,7 +87,7 @@ DROP TABLE IF EXISTS `equipment_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `equipment_types` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` smallint NOT NULL AUTO_INCREMENT,
   `type` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -112,7 +112,7 @@ DROP TABLE IF EXISTS `jerseys`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `jerseys` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `equipmentID` int NOT NULL,
+  `equipmentID` smallint NOT NULL,
   `color` varchar(50) NOT NULL,
   `size` varchar(20) NOT NULL,
   `jerseyNum` int NOT NULL,
@@ -240,7 +240,7 @@ CREATE TABLE `shoes` (
   `q_12_5` int DEFAULT NULL,
   `q_13` int DEFAULT NULL,
   `width` varchar(10) DEFAULT NULL,
-  `equipmentID` int DEFAULT NULL,
+  `equipmentID` smallint DEFAULT NULL,
   CONSTRAINT `shoeEquipmentID` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`equipmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
