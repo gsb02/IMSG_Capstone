@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 
 const AddPlayer = ({ onAddPlayer }) => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const passedTeamId = location.state?.teamId;
     const handleBackClick = () => {
         navigate(-1);
     }
@@ -12,7 +14,7 @@ const AddPlayer = ({ onAddPlayer }) => {
     const [playerName, setPlayerName] = useState('');
     const [age, setAge] = useState('');
     const [sport, setSport] = useState('');
-    const [teamID, setTeamID] = useState('');
+    const [teamID, setTeamID] = useState(passedTeamId || '');
     const [grade, setGrade] = useState('');
     const [isCoach, setIsCoach] = useState("0");
     const [jerseyNum, setJerseyNum] = useState('');
