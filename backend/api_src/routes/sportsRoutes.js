@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.route("/").get(getAllSports)
 router.route("/:sportID").get(getSportByID).delete(deleteSportByID).put(updateSportByID);
-//
+
 
 export default router;
