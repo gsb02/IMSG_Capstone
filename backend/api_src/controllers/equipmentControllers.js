@@ -17,7 +17,7 @@ export const createEquipment = async (req, res, next) => {
         switch (equipmentType) {
 
             //apparel
-            case 1:
+            case '1':
                 
                 let { brandName, qSmall, qMed, qLarge, qXL, qXXL, q3X } = attributes;
 
