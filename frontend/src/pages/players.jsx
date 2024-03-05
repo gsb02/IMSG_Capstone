@@ -8,12 +8,10 @@ import Modal from './Modal.jsx';
 const Players = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const passedTeamId = location.state?.teamId || null;
+    const { teamId, teamName } = location.state || {};
     const [showModal, setShowModal] = useState(false);
     const [deletePlayerId, setDeletePlayerId] = useState(null);
     const [players, setPlayers] = useState([]);
-    const [teams, setTeams] = useState([]);
-    const [teamId, setTeamId] = useState(passedTeamId ? passedTeamId.toString() : '');
     const [classFilter, setClassFilter] = useState('All');
     const [nameFilter, setNameFilter] = useState('');
     const [ageFilter, setAgeFilter] = useState('');
@@ -33,21 +31,7 @@ const Players = () => {
         }
     };
 
-    const fetchTeams = async () => {
-        try {
-            const response = await axios.get('http://localhost:3000/teams');
-            setTeams(response.data);
-            // Optionally, set the first team as the default selected team
-            if(response.data.length > 0 && !teamId) {
-                setTeamId(response.data[0].teamId.toString());
-            }
-        } catch (error) {
-            console.error('There was an error fetching the teams:', error);
-        }
-    };
-
     useEffect(() => {
-        fetchTeams();
         if(teamId){
             fetchPlayers();
         }
@@ -58,7 +42,6 @@ const Players = () => {
           try {
             await axios.delete(`http://localhost:3000/players/player${deletePlayerId}`);
             setPlayers(players.filter(player => player.playerId !== deletePlayerId));
-            // Reset and close modal
             setShowModal(false);
             setDeletePlayerId(null);
           } catch (error) {
@@ -66,10 +49,6 @@ const Players = () => {
           }
         }
       };
-
-    const handleTeamIdChange = (event) => {
-        setTeamId(event.target.value);
-    };
 
     const handleClassFilterChange = (event) =>{
         setClassFilter(event.target.value);
@@ -88,15 +67,15 @@ const Players = () => {
 
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-            <Link to="/addPlayer" state={{ teamId: teamId}}>
+            <Link to="/addPlayer" state={{ teamId: teamId, teamName: teamName}}>
                 <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Add Player</button>
             </Link>
-            <h1 style={{textAlign: "center"}}>Player List</h1>
-            <select value={teamId} onChange={handleTeamIdChange}>
+            <h1 style={{textAlign: "center"}}>{teamName ? `${teamName} Players` : 'Player List'}</h1>
+            {/* <select value={teamId} onChange={handleTeamIdChange}>
                 {teams.map((team) => (
                     <option key={team.teamId} value={team.teamId}>{team.teamName}</option>
                 ))}
-            </select>
+            </select> */}
             <select value={classFilter} onChange={handleClassFilterChange}>
                 <option value="All">All Classes</option>
                 <option value="FR">Freshman</option>

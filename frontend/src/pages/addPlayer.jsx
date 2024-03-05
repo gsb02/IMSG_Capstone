@@ -7,13 +7,12 @@ const AddPlayer = ({ onAddPlayer }) => {
     const location = useLocation();
     const passedTeamId = location.state?.teamId;
     const handleBackClick = () => {
-        navigate(-1);
-    }
+        navigate('/players', {state: {teamId: teamID, teamName: location.state?.teamName}});
+    };
     const [teams, setTeams] = useState([]);
     const [isHovering, setIsHovering] = useState(false);
     const [playerName, setPlayerName] = useState('');
     const [age, setAge] = useState('');
-    const [sport, setSport] = useState('');
     const [teamID, setTeamID] = useState(passedTeamId || '');
     const [grade, setGrade] = useState('');
     const [isCoach, setIsCoach] = useState("0");
@@ -32,20 +31,19 @@ const AddPlayer = ({ onAddPlayer }) => {
         fetchTeams();
     }, []);
 
-    // Define styles for input and label grouping
     const formGroupStyle = { 
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'flex-start', 
-        marginBottom: '15px', // Adjust spacing between each form group
-        width: '100%', // Ensure it takes the full width available
-        maxWidth: '300px', // Maximum width to match input style
+        marginBottom: '15px', 
+        width: '100%', 
+        maxWidth: '300px', 
     };
 
     const inputStyle = { 
-        width: '300px', // Take the full width of the formGroupStyle
+        width: '300px', 
         height: '30px',
-        marginTop: '5px', // Add some space between label and input
+        marginTop: '5px', 
     };
 
     const formStyle = { 
@@ -81,19 +79,17 @@ const AddPlayer = ({ onAddPlayer }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(`Submitting player with teamID: ${teamID}`);
             await axios.post('http://localhost:3000/players', { playerName, teamID: Number(teamID), age, grade, isCoach: Number(isCoach), jerseyNum });
-            navigate('/players'); // Navigate after successful addition
+            navigate('/players', {state: { teamId: teamID, teamName: location.state?.teamName}});
         } catch (error) {
             console.error('There was an error adding the player:', error);
         }
-    }
+    };
 
     return (
         <div style= {containerStyle}>
             <button onClick={handleBackClick} style={backButtonStyle} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>Back</button>
             <form onSubmit={handleSubmit} style={formStyle}>
-                {/* Wrap each label-input pair in a div with formGroupStyle */}
                 <div style={formGroupStyle}>
                     <label>Player Name:</label>
                     <input type="text" value={playerName} onChange={(e) => setPlayerName(e.target.value)} required style={inputStyle}/>
@@ -102,19 +98,6 @@ const AddPlayer = ({ onAddPlayer }) => {
                     <label>Age:</label>
                     <input type="number" value={age} onChange={(e) => setAge(e.target.value)} required style={inputStyle}/>
                 </div>
-                <div style={formGroupStyle}>
-                    <label>Sport:</label>
-                    <input type="text" value={sport} onChange={(e) => setSport(e.target.value)} required style={inputStyle}/>
-                </div>
-                {/* <div style={formGroupStyle}>
-                    <label>Team:</label>
-                    <select value={teamID} onChange={(e) => setTeamID(e.target.value)} required style={inputStyle}>
-                        <option value="" disabled>Select a team</option>
-                        {teams.map((team) => (
-                            <option key={team.teamId} value={team.teamId}>{team.teamName}</option>
-                        ))}
-                    </select>
-                </div> */}
                 <div style={formGroupStyle}>
                     <label>Grade:</label>
                     <select value={grade} onChange={(e) => setGrade(e.target.value)} required style={inputStyle}>
