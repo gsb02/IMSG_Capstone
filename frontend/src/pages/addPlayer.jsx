@@ -106,7 +106,7 @@ const AddPlayer = ({ onAddPlayer }) => {
                     <label>Sport:</label>
                     <input type="text" value={sport} onChange={(e) => setSport(e.target.value)} required style={inputStyle}/>
                 </div>
-                <div style={formGroupStyle}>
+                {/* <div style={formGroupStyle}>
                     <label>Team:</label>
                     <select value={teamID} onChange={(e) => setTeamID(e.target.value)} required style={inputStyle}>
                         <option value="" disabled>Select a team</option>
@@ -114,7 +114,7 @@ const AddPlayer = ({ onAddPlayer }) => {
                             <option key={team.teamId} value={team.teamId}>{team.teamName}</option>
                         ))}
                     </select>
-                </div>
+                </div> */}
                 <div style={formGroupStyle}>
                     <label>Grade:</label>
                     <select value={grade} onChange={(e) => setGrade(e.target.value)} required style={inputStyle}>

@@ -41,12 +41,15 @@ const Teams = () => {
                     </th>
                 </tr>
                 {teams.map((team, index) => (
-                    <tr>
+                    <tr key={team.teamId}>
                         <td style={{ borderBottom: "1px solid black" }}>
                             {team.teamName}
                         </td>
                         <td style={{ borderBottom: "1px solid black" }}>
-                            <Link to={`/players/team${team.teamId}`}>
+                            <Link to="/addPlayer" state={{ teamId: team.teamId }}>
+                                <button>Add Player</button>
+                            </Link>
+                            <Link to="/players" state={{teamId: team.teamId}}>
                             <button>View Roster</button>
                             </Link>   
                             <button>Edit</button>      
