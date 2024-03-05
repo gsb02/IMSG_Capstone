@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import './players.css';
 import Modal from './Modal.jsx';
 
 
 const Players = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const passedTeamId = location.state?.teamId || null;
     const [showModal, setShowModal] = useState(false);
     const [deletePlayerId, setDeletePlayerId] = useState(null);
     const [players, setPlayers] = useState([]);
     const [teams, setTeams] = useState([]);
-    const [teamId, setTeamId] = useState('1');
+    const [teamId, setTeamId] = useState(passedTeamId ? passedTeamId.toString() : '');
     const [classFilter, setClassFilter] = useState('All');
     const [nameFilter, setNameFilter] = useState('');
     const [ageFilter, setAgeFilter] = useState('');
@@ -35,7 +38,7 @@ const Players = () => {
             const response = await axios.get('http://localhost:3000/teams');
             setTeams(response.data);
             // Optionally, set the first team as the default selected team
-            if(response.data.length > 0) {
+            if(response.data.length > 0 && !teamId) {
                 setTeamId(response.data[0].teamId.toString());
             }
         } catch (error) {
@@ -45,10 +48,6 @@ const Players = () => {
 
     useEffect(() => {
         fetchTeams();
-        fetchPlayers();
-    }, []);
-
-    useEffect(() => {
         if(teamId){
             fetchPlayers();
         }
