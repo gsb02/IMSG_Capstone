@@ -17,7 +17,7 @@ function App() {
         <li><a id="li" href="./equip">Equipment</a></li>
         <li><a id="li" href="./players">Players</a></li>
         <li><a id="li" href="./settings">Settings</a></li>
-        <li><a id="li" href="">Logoff</a></li>
+        {/* <li><a id="li" href="">Logoff</a></li> */}
       </ul>
       <BrowserRouter>
         <Routes>
