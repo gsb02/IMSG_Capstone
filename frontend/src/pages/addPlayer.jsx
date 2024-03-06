@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
+import './addPlayer.css';
 
 const AddPlayer = ({ onAddPlayer }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const passedTeamId = location.state?.teamId;
+
     const handleBackClick = () => {
         navigate('/players', {state: {teamId: teamID, teamName: location.state?.teamName}});
     };
+
     const [teams, setTeams] = useState([]);
     const [isHovering, setIsHovering] = useState(false);
     const [playerName, setPlayerName] = useState('');
@@ -31,51 +34,6 @@ const AddPlayer = ({ onAddPlayer }) => {
         fetchTeams();
     }, []);
 
-    const formGroupStyle = { 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'flex-start', 
-        marginBottom: '15px', 
-        width: '100%', 
-        maxWidth: '300px', 
-    };
-
-    const inputStyle = { 
-        width: '300px', 
-        height: '30px',
-        marginTop: '5px', 
-    };
-
-    const formStyle = { 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center',
-        marginTop: '60px', 
-        marginBottom: '20px',
-    };
-
-    const containerStyle = {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        marginTop: '40px', 
-        position: 'relative',
-        width: '100%'
-    };
-
-    const backButtonStyle = {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        backgroundColor: 'transparent',
-        border: 'none',
-        color: isHovering ? '#3498db' : 'inherit',
-        cursor: 'pointer',
-        padding: '10px',
-        transition: 'color o.3s ease',
-        textDecoration: 'underline'
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -87,20 +45,20 @@ const AddPlayer = ({ onAddPlayer }) => {
     };
 
     return (
-        <div style= {containerStyle}>
-            <button onClick={handleBackClick} style={backButtonStyle} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>Back</button>
-            <form onSubmit={handleSubmit} style={formStyle}>
-                <div style={formGroupStyle}>
+        <div className="container">
+            <button onClick={handleBackClick} className={`backButton ${isHovering ? 'hover' : ''}`} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>Back</button>
+            <form onSubmit={handleSubmit} className="form">
+                <div className="formGroup">
                     <label>Player Name:</label>
-                    <input type="text" value={playerName} onChange={(e) => setPlayerName(e.target.value)} required style={inputStyle}/>
+                    <input type="text" value={playerName} onChange={(e) => setPlayerName(e.target.value)} required className="input"/>
                 </div>
-                <div style={formGroupStyle}>
+                <div className="formGroup">
                     <label>Age:</label>
-                    <input type="number" value={age} onChange={(e) => setAge(e.target.value)} required style={inputStyle}/>
+                    <input type="number" value={age} onChange={(e) => setAge(e.target.value)} required className="input"/>
                 </div>
-                <div style={formGroupStyle}>
+                <div className="formGroup">
                     <label>Grade:</label>
-                    <select value={grade} onChange={(e) => setGrade(e.target.value)} required style={inputStyle}>
+                    <select value={grade} onChange={(e) => setGrade(e.target.value)} required className="input">
                         <option value="" disabled>Select a grade</option>
                         <option value="FR">Freshman (FR)</option>
                         <option value="SO">Sophomore (SO)</option>
@@ -108,18 +66,18 @@ const AddPlayer = ({ onAddPlayer }) => {
                         <option value="SR">Senior (SR)</option>
                     </select>
                 </div>
-                <div style={formGroupStyle}>
+                <div className='formGroup'>
                     <label>Coach:</label>
-                    <select value={isCoach} onChange={(e) => setIsCoach(e.target.value)} required style={inputStyle}>
+                    <select value={isCoach} onChange={(e) => setIsCoach(e.target.value)} className="input">
                         <option value="0">No</option>
                         <option value="1">Yes</option>
                     </select>
                 </div>
-                <div style={formGroupStyle}>
+                <div className="formGroup">
                     <label>Jersey Number:</label>
-                    <input type="number" value={jerseyNum} onChange={(e) => setJerseyNum(e.target.value)} required style={inputStyle}/>
+                    <input type="number" value={jerseyNum} onChange={(e) => setJerseyNum(e.target.value)} required className="input"/>
                 </div>
-                <button type="submit" style={{ backgroundColor: "#3498db", color: "white", width: '100px', height: '40px', marginTop: '20px', borderRadius: '10px' }}>Add Player</button>
+                <button type="submit" className="submitButton">Add Player</button>
             </form>
         </div>
     );
