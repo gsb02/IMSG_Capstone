@@ -1,9 +1,35 @@
-.button {
-    padding: 10px 10px;
-    background-color: rgb(31, 31, 159);
+.table-container {
+    max-width: 800px; /*limits size of components on page*/
+    width: 100%;
+    margin: 0 auto; 
+  }
+  
+  .table {
+    width: 100%; /*player table*/
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td { /*Table headers and data*/
+    text-align: left;
+    padding: 8px; 
+    border-bottom: 1px solid #dddddd; 
+  }
+  
+  .filters-container { /*Filters and add player button placement on page*/
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .add-player{ /*add player button*/
+    background-color: #3498db;
     color: white;
-}
-.page {
-    padding: 20px;
-    margin: auto;
-}
+    width: 100px;
+    height: 40px; 
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .add-player:hover{
+    background-color: #5cb1f9;
+  }

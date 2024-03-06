@@ -4,13 +4,14 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import './players.css';
 import Modal from './Modal.jsx';
 
-
 const Players = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { teamId, teamName } = location.state || {};
+
     const [showModal, setShowModal] = useState(false);
     const [deletePlayerId, setDeletePlayerId] = useState(null);
+
     const [players, setPlayers] = useState([]);
     const [classFilter, setClassFilter] = useState('All');
     const [nameFilter, setNameFilter] = useState('');
@@ -25,7 +26,6 @@ const Players = () => {
         try {
             const response = await axios.get(`http://localhost:3000/players/team${teamId}`);
             setPlayers(response.data);
-            console.log(response.data);
         } catch (error) {
             console.error('There was an error fetching the players:', error);
         }
@@ -66,38 +66,35 @@ const Players = () => {
     })
 
     return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-            <Link to="/addPlayer" state={{ teamId: teamId, teamName: teamName}}>
-                <button style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Add Player</button>
-            </Link>
+        <div className="table-container">
             <h1 style={{textAlign: "center"}}>{teamName ? `${teamName} Players` : 'Player List'}</h1>
-            {/* <select value={teamId} onChange={handleTeamIdChange}>
-                {teams.map((team) => (
-                    <option key={team.teamId} value={team.teamId}>{team.teamName}</option>
-                ))}
-            </select> */}
-            <select value={classFilter} onChange={handleClassFilterChange}>
-                <option value="All">All Classes</option>
-                <option value="FR">Freshman</option>
-                <option value="SO">Sophomore</option>
-                <option value="JR">Junior</option>
-                <option value="SR">Senior</option>
-            </select>
-            <input
-                type="text"
-                placeholder="Filter by name"
-                value={nameFilter}
-                onChange={(e) => setNameFilter(e.target.value)}
-                style={{margin: '10px 0', padding: '10px'}}
-            />
-            <input
-                type="number"
-                placeholder="Filter by age"
-                value={ageFilter}
-                onChange={handleAgeFilterChange}
-                style={{margin: '10px 0', padding: '10px'}}
-            />
-            <table style = {{ textAlign: "center",  backgroundColor: "white", borderStyle: "solid", margin: "5px", borderCollapse: "collapse"}}>
+            <div className="filters-container">
+                <Link to="/addPlayer" state={{ teamId: teamId, teamName: teamName}}> 
+                    <button className="add-player">Add Player</button>
+                </Link>
+                <select value={classFilter} onChange={handleClassFilterChange}>
+                    <option value="All">All Classes</option>
+                    <option value="FR">Freshman</option>
+                    <option value="SO">Sophomore</option>
+                    <option value="JR">Junior</option>
+                    <option value="SR">Senior</option>
+                </select>
+                <input
+                    type="text"
+                    placeholder="Filter by name"
+                    value={nameFilter}
+                    onChange={(e) => setNameFilter(e.target.value)}
+                    style={{ padding: '10px'}}
+                />
+                <input
+                    type="number"
+                    placeholder="Filter by age"
+                    value={ageFilter}
+                    onChange={handleAgeFilterChange}
+                    style={{ padding: '10px'}}
+                />
+            </div>
+            <table className="table">
                 <thead>
                 <tr>
                     <th scope = "col">Name</th>
@@ -112,35 +109,23 @@ const Players = () => {
                 <tbody>
                 {filteredPlayers.map((player, index) => (
                     <tr key={index}>
-                        <td style={{ borderBottom: "1px solid black" }}>
-                            {player.playerName}
-                        </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
-                            {player.age}
-                        </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
-                            {player.class}
-                        </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
-                            {player.teamID}
-                        </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
-                            {player.isCoach ? 'Yes' : 'No'}
-                        </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
-                            {player.jerseyNum}
-                        </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
+                        <td>{player.playerName}</td>
+                        <td>{player.age}</td>
+                        <td>{player.class}</td>
+                        <td>{player.teamID}</td>
+                        <td>{player.isCoach ? 'Yes' : 'No'}</td>
+                        <td>{player.jerseyNum}</td>
+                        <td>
                             <button>Edit</button>
                             <button onClick={() => initiateDelete(player.playerId)}>Delete</button>
                         </td>
                     </tr>
                 ))}
-                <Modal isOpen={showModal} onClose={() => setShowModal(false)} onConfirm={handleDelete}>
-                    Are you sure you want to delete this player?
-                </Modal>
                 </tbody>
             </table>
+            <Modal isOpen={showModal} onClose={() => setShowModal(false)} onConfirm={handleDelete}>
+                Are you sure you want to delete this player?
+            </Modal>
         </div>
     );
 };
