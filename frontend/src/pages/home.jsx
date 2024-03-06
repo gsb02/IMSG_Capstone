@@ -15,7 +15,7 @@ const HomePage = () => {
               <Link to="/players" className="cs-item">
                   <span className="cs-name">Players</span>
               </Link>
-              <Link to="/equip" className="cs-item">
+              <Link to="/equipment" className="cs-item">
                   <span className="cs-name">Equipment</span>
               </Link>
               
