@@ -16,7 +16,7 @@ const AddEquip = () => {
     const [storedQuantity, setStoredQuantity] = useState('');
     const [distQuantity, setDistQuantity] = useState('');
     const [sportID, setSportID] = useState(2);
-    const [equipmentType, setEquipmentType] = useState('0');
+    const [equipmentType, setEquipmentType] = useState(0);
     const [lastOrdered, setLastOrdered] = useState('');
     const [lastDistributed, setLastDistributed] = useState('');
     const [sports, setSports] = useState([]);
@@ -121,71 +121,95 @@ const AddEquip = () => {
         fetchSports();
       }, []);
 
+    const containerStyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginTop: '40px', 
+        position: 'relative',
+        width: '100%'
+    };
+
+    const inputStyle = { 
+        width: '300px', 
+        height: '30px',
+        marginTop: '5px', 
+    };
+
+    const formGroupStyle = { 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'flex-start', 
+        marginBottom: '15px', 
+        width: '100%', 
+        maxWidth: '300px', 
+    };
+
     // The output to the webpage
     return (
         <div className='addEquip'>
-            <h1>Add New Equipment</h1>
+            <h1 style={containerStyle}>Add New Equipment</h1>
                 <label>
                     Equipment:
-                    <select value={equipmentType} onChange={(e) => setEquipmentType(e.target.value)} required>
-                        <option value="">Select a type</option>
+                    <select value={equipmentType} onChange={(e) => setEquipmentType(Number(e.target.value))} required>
+                        <option>Select a type</option>
                         <option value='1'>Apparel</option>
                         <option value='2'>Accessory</option>
-                        <option value="3">Shoes</option>
-                        <option value="4">Jersey</option>
+                        <option value='3'>Shoes</option>
+                        <option value='4'>Jersey</option>
                     </select>
                 </label>
             {equipmentType && ( // The dropdown menu above the the statements that follow dictate what is displayed, and enterable for the corresponding equipment type
                 <div>
-                    {equipmentType === "1" && 
-                        <div>
+                    {equipmentType === 1 && 
+                        <div style={formGroupStyle}>
                         <label>
                             Equipment Name: 
-                            <input type="text" value={equipmentName} onChange={(e) => setEquipmentName(e.target.value)} required/>
+                            <input style={inputStyle} type="text" value={equipmentName} onChange={(e) => setEquipmentName(e.target.value)} required/>
                         </label>
                         <label>
                             Quantity Stored: 
-                            <input type="text" value={storedQuantity} onChange={(e) => setStoredQuantity(e.target.value)} required/>
+                            <input style={inputStyle} type="text" value={storedQuantity} onChange={(e) => setStoredQuantity(e.target.value)} required/>
                         </label>
                         <label>
                             Quantity Distributed: 
-                            <input type="text" value={distQuantity} onChange={(e) => setDistQuantity(e.target.value)} required/>
+                            <input style={inputStyle} type="text" value={distQuantity} onChange={(e) => setDistQuantity(e.target.value)} required/>
                         </label>
                         <label>
                             Last Ordered Date: 
-                            <input type="text" value={lastOrdered} onChange={(e) => setLastOrdered(e.target.value)} required/>
+                            <input style={inputStyle} type="text" value={lastOrdered} onChange={(e) => setLastOrdered(e.target.value)} required/>
                         </label>
                         <label>
                             Last Distributed Date: 
-                            <input type="text" value={lastDistributed} onChange={(e) => setLastDistributed(e.target.value)} required/>
+                            <input style={inputStyle} type="text" value={lastDistributed} onChange={(e) => setLastDistributed(e.target.value)} required/>
                         </label>
                         <label>
                             Brand Name: 
-                            <input type="text" name="brandName" onChange={(e) => handleBrandChange(e)} required/>
+                            <input style={inputStyle} type="text" name="brandName" onChange={(e) => handleBrandChange(e)} required/>
                         </label>
                         <label>
                             Quantity of Smalls: 
-                            <input type="number" name="qSmall" onChange={(e) => handleSmallChange(e)} required/>
+                            <input style={inputStyle} type="number" name="qSmall" onChange={(e) => handleSmallChange(e)} required/>
                         </label>
                         <label>
                             Quantity of Mediums: 
-                            <input type="number" name="qMed" onChange={(e) => handleMediumChange(e)} required/>
+                            <input style={inputStyle} type="number" name="qMed" onChange={(e) => handleMediumChange(e)} required/>
                         </label>
                         <label>
                             Quantity of Larges: 
-                            <input type="number" name="qLarge" onChange={(e) => handleLargeChange(e)} required/>
+                            <input style={inputStyle} type="number" name="qLarge" onChange={(e) => handleLargeChange(e)} required/>
                         </label>
                         <label>
                             Quantity of X-Larges: 
-                            <input type="number" name="qXL" onChange={(e) => handleXLChange(e)} required/>
+                            <input style={inputStyle} type="number" name="qXL" onChange={(e) => handleXLChange(e)} required/>
                         </label>
                         <label>
                             Quantity of XXLs: 
-                            <input type="number" name="qXXL" onChange={(e) => handleXXLChange(e)} required/>
+                            <input style={inputStyle} type="number" name="qXXL" onChange={(e) => handleXXLChange(e)} required/>
                         </label>
                         <label>
                             Quantity of 3XL: 
-                            <input type="number" name="q3X" onChange={(e) => handle3XChange(e)} required/>
+                            <input style={inputStyle} type="number" name="q3X" onChange={(e) => handle3XChange(e)} required/>
                         </label>
                         </div>
                     }
