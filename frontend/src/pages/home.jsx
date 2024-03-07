@@ -18,8 +18,6 @@ const HomePage = () => {
               <Link to="/equipment" className="cs-item">
                   <span className="cs-name">Equipment</span>
               </Link>
-              
-              
           </ul>
         </div>
       </section>
