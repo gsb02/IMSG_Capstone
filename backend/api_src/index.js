@@ -1,11 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import { KEYS } from './api_src/config/keys.js'
-import playerRoutes from './api_src/routes/playerRoutes.js'
-import teamRoutes from './api_src/routes/teamRoutes.js'
-import equipmentRoutes from './api_src/routes/equipmentRoutes.js'
-import sportsRoutes from './api_src/routes/sportsRoutes.js'
-import ordersRoutes from './api_src/routes/ordersRoutes.js'
+import { KEYS } from './config/keys.js'
+import playerRoutes from './routes/playerRoutes.js'
+import teamRoutes from './routes/teamRoutes.js'
+import equipmentRoutes from './routes/equipmentRoutes.js'
+import sportsRoutes from './routes/sportsRoutes.js'
+import ordersRoutes from './routes/ordersRoutes.js'
+import loggingRoutes from './routes/loggingRoutes.js'
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/teams", teamRoutes);
 app.use("/sports", sportsRoutes);
 app.use("/equipment", equipmentRoutes);
 app.use("/orders", ordersRoutes);
+app.use("/log", loggingRoutes);
 
 app.get('/', (req, res) => {
     res.send("api is running");
