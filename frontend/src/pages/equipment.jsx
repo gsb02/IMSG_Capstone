@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import { useEffect, useState, table, Link } from "react"
 import { useNavigate } from "react-router-dom"
+import './equipment.css';
 
 const Equipment = () => {
     const [equipment, setEquipment] = useState( [] )
@@ -43,11 +44,18 @@ const Equipment = () => {
     const handleClick = () => {
         navigate('/AddEquip')
     }
+    const handleAssigntoTeam = () => {
+        navigate('/assignEquiptoTeam')
+    }
 
     return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+        <div className="table-container">
             <h1 style={{textAlign: "center"}}>Equipment List</h1>
-            <table style = {{ textAlign: "center",  backgroundColor: "white", borderStyle: "solid", margin: "5px", borderCollapse: "collapse"}}>
+            <div style={{display: 'flex', justifyContent: 'left', marginBottom: '20px'}}>
+            <button onClick={handleClick}className="add-equip">Add Equip</button>
+            <button onClick={handleAssigntoTeam}className="assign-equip">Assign Equipment to Team</button>
+            </div>
+            <table className="table">
                 <thead>
                 <tr>
                     <th scope = "col">Equipment</th>
@@ -61,30 +69,28 @@ const Equipment = () => {
                 <tbody>
                 {equipment.map((equip, index) => (//The meet of the webpage is this map function for the equipment.
                     <tr key={index}>
-                        <td style={{ borderBottom: "1px solid black" }}>
+                        <td>
                             {equip.equipmentName}
                         </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
+                        <td>
                             {equip.equipmentType}
                         </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
+                        <td>
                             {equip.storedQuantity}
                         </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
+                        <td>
                             {equip.distQuantity}
                         </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
+                        <td>
                             {equip.lastOrdered}
                         </td>
-                        <td style={{ borderBottom: "1px solid black" }}>
+                        <td>
                             {equip.lastDistributed}
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-
-            <button onClick={handleClick}style={{ width: '350px', height: '60px', fontSize: '20px', margin: '25px' }}>Add Equip</button>
         </div>
     );
 }

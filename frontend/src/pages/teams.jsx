@@ -25,6 +25,7 @@ const Teams = () => {
             await axios.delete(`http://localhost:3000/teams/${teamID}`);
             console.log(teamID);
             setTeams(teams.filter(team => teams.teamID !== teamID));
+            window.location.reload();
         } catch (error) {
             console.error('There was an error deleting the team:', error);
         }
@@ -33,7 +34,7 @@ const Teams = () => {
     return (
         <div className="table-container">
             <h1 style={{ textAlign: "center" }}>UMaine Sports Teams</h1>
-            <div style={{ justifyContent: 'center', display: 'flex' }}>
+            <div style={{ justifyContent: 'space-between', display: 'flex', marginBottom:'20px' }}>
                 <Link to="/addTeam">
                     <button className="add-team">Add Team</button>
                 </Link>

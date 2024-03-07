@@ -1,0 +1,42 @@
+.table-container {
+    max-width: 800px; /*limits size of components on page*/
+    width: 100%;
+    margin: 0 auto; 
+  }
+  
+  .table {
+    width: 100%; /*player table*/
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td { /*Table headers and data*/
+    text-align: left;
+    padding: 8px; 
+    border-bottom: 1px solid #dddddd; 
+  }
+
+  .add-equip{ /*add player button*/
+    background-color: #3498db;
+    color: white;
+    width: 100px;
+    height: 40px; 
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .assign-equip{ /*assign equipment to team button*/
+    background-color: #3498db;
+    color: white;
+    width: 140px;
+    height: 40px; 
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .add-equip:hover{
+    background-color: #5cb1f9;
+  }
+
+  .assign-equip:hover{
+    background-color: #5cb1f9;
+  }
