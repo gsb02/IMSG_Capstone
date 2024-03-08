@@ -39,7 +39,7 @@ export const getTeamByID = async (req, res, next) => {
     try{
     let teamID = req.params.teamID;
     let [team, _] = await Team.getTeamByID(teamID);
-
+    
     res.status(200).json(team);
     } catch (error) {
 
@@ -52,6 +52,8 @@ export const deleteTeam = async (req, res, next) => {
     try{
     let teamID = req.params.teamID;
     let [team, _] = await Team.deleteTeam(teamID);
+    
+    await Log.createLogItem("Delete", "Team", teamName);
 
     res.status(200).json(team);
     } catch (error) {
@@ -70,6 +72,8 @@ export const updateTeam = async (req, res, next) => {
     let gender = req.params.gender;
     let season = req.params.season;
     let [team, _] = await Team.updateTeam(teamID, teamName, teamDesc, sportID, gender, season);
+    
+    await Log.createLogItem("Edit", "Team", teamName);
 
     res.status(200).json(team);
     } catch (error) {
@@ -87,6 +91,9 @@ export const assignEquipmentToTeam = async (req, res, next) => {
     let teamID = req.params.teamID;
 
     let [team, _] = await Team.assignEquipmentToTeam(teamID, equipmentID);
+
+    await Log.createLogItem("Assignment", "Equipment", teamName);
+
     res.status(200).json(team);
     } catch (error) {
         res.status(500).json({ error: 'Failed to assign equipment to team' });

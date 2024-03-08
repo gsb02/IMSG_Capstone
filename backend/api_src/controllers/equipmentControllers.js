@@ -78,6 +78,8 @@ export const createEquipment = async (req, res, next) => {
 
         }
 
+        await Log.createLogItem("Create", "Equipment", equipmentName);
+
         res.status(200).json(equipment);
         
     } catch(error){
@@ -120,9 +122,10 @@ export const deleteEquipmentByID = async (req, res, next) => {
             default:
                 break;
         }
-        res.status(200).json(equipment);
 
-        await Log.createLogItem("Create", "Equipment", equipmentName);
+        await Log.createLogItem("Delete", "Equipment", equipmentName);
+
+        res.status(200).json(equipment);
 
     } catch (error) {
         res.status(500).json({error: "error deleting equipment"})
