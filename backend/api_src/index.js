@@ -6,6 +6,7 @@ import teamRoutes from './routes/teamRoutes.js'
 import equipmentRoutes from './routes/equipmentRoutes.js'
 import sportsRoutes from './routes/sportsRoutes.js'
 import ordersRoutes from './routes/ordersRoutes.js'
+import loggingRoutes from './routes/loggingRoutes.js'
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/teams", teamRoutes);
 app.use("/sports", sportsRoutes);
 app.use("/equipment", equipmentRoutes);
 app.use("/orders", ordersRoutes);
+app.use("/log", loggingRoutes);
 
 app.get('/', (req, res) => {
     res.send("api is running");

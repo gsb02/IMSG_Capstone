@@ -1,5 +1,5 @@
 import Player from '../models/Player.js'
-
+import Log from '../models/Log.js';
 
 export const getAllPlayers = async (req, res, next) => {
     try {
@@ -18,6 +18,9 @@ export const createNewPlayer = async (req, res, next) => {
         let player = new Player(null, playerName, teamID, age, grade, isCoach, jerseyNum);
         player = await player.createPlayer();
         console.log(player);
+
+        await Log.createLogItem("Create", "Player", playerName);
+
         res.status(200).json(player);
     } catch (error) {
         console.log(error);
@@ -40,6 +43,9 @@ export const deletePlayerByID = async (req, res, next) => {
     try {
         let playerID = req.params.playerID;
         let [player, _] = await Player.deletePlayerByID(playerID);
+
+        await Log.createLogItem("Delete", "Player", playerName);
+
         res.status(200).json(player);
     } catch (error) {
 
@@ -66,6 +72,9 @@ export const updatePlayerByID = async (req, res, next) => {
         
         let player = new Player(playerID, playerName, teamID, age, grade, isCoach, jerseyNum);
         player = await player.updatePlayerByID();
+
+        await Log.createLogItem("Edit", "Player", playerName);
+
         res.status(200).json(player);
 
     } catch (error) {

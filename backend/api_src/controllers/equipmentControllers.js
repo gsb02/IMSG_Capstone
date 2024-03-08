@@ -2,6 +2,7 @@ import Equipment from "../models/Equipment.js";
 import Apparel from "../models/Apparel.js";
 import Shoe from "../models/Shoe.js";
 import Jersey from "../models/Jersey.js";
+import Log from "../models/Log.js";
 
 export const createEquipment = async (req, res, next) => {
 
@@ -77,8 +78,10 @@ export const createEquipment = async (req, res, next) => {
 
         }
 
-        res.status(200).json(equipment);
+        await Log.createLogItem("Create", "Equipment", equipmentName);
 
+        res.status(200).json(equipment);
+        
     } catch(error){
         console.log(error);
         res.status(500).json({error: "error creating equipment"})
@@ -119,6 +122,9 @@ export const deleteEquipmentByID = async (req, res, next) => {
             default:
                 break;
         }
+
+        await Log.createLogItem("Delete", "Equipment", equipmentName);
+
         res.status(200).json(equipment);
 
     } catch (error) {
