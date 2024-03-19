@@ -58,10 +58,10 @@ const AddTeams = () => {
         <label style={{ marginBottom: '5px' }}>Year:</label>
         <input type="text" value={season} onChange={(e) => setYear(e.target.value)} style={{ width: '300px', height: '30px' }} />
         <br />
+        <div style={{display: 'flex', justifyContent: 'center', marginTop: '-10px', marginBottom: '10px'}}>
+        <button type="submit" className="add-team">Add Team</button>
+        </div>
       </form>
-      <div style={{display: 'flex', justifyContent: 'center', marginTop: '-10px', marginBottom: '10px'}}>
-      <button type="submit" className="add-team">Add Team</button>
-      </div>
       <button onClick={handleBackClick}>Back</button>
     </div>
   );

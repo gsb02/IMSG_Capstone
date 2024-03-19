@@ -1,6 +1,6 @@
 
 @media only screen and (min-width: 0rem) {
-    #reviews-355 .cs-container {
+    #buttonGroup .cs-container {
         width: 100%;
         max-width: 90rem;
         margin-top: 150px;
@@ -13,7 +13,7 @@
         width: 100%;
     }
 
-    #reviews-355 .cs-card-group {
+    #buttonGroup .cs-card-group {
         padding: 0;
         margin: 0;
         display: flex;
@@ -23,7 +23,7 @@
         gap: clamp(1rem, 2.5vw, 1.15rem);
         text-decoration: none;
     }
-    #reviews-355 .cs-item {
+    #buttonGroup .cs-item {
         list-style: none;
         width: 200px;
         height: 100px;
@@ -39,11 +39,11 @@
         position: relative;
         text-decoration: none;
     }
-    #reviews-355 .cs-item:hover {
+    #buttonGroup .cs-item:hover {
         transform: scale(1.05);
     }
    
-    #reviews-355 .cs-name {
+    #buttonGroup .cs-name {
         font-size: clamp(1.25rem, 3vw, 1.5625rem);
         line-height: 1.2em;
         font-weight: 700;
@@ -57,7 +57,7 @@
 }
 
 @media only screen and (min-width: 48rem) {
-    #reviews-355 .cs-card-group {
+    #buttonGroup .cs-card-group {
         flex-direction: row;
         justify-content: center;
         align-items: stretch;

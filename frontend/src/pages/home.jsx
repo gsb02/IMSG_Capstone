@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <h1 style={{margin: '-1px', color: 'black'}}>University of Maine Athletic Inventory Tracker</h1>
-      <section id="reviews-355">
+      <section id="buttonGroup">
         <div className="cs-container">
           <ul className="cs-card-group">
               <Link to="/teams" className="cs-item">
