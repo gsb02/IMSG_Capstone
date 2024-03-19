@@ -1,0 +1,28 @@
+.table-container {
+    max-width: 800px; 
+    width: 100%;
+    margin: 0 auto; 
+  }
+  
+  .table {
+    width: 100%; 
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td { 
+    text-align: left;
+    padding: 8px; 
+    border-bottom: 1px solid #dddddd; 
+  }
+  .add-team{ 
+    background-color: #3498db;
+    color: white;
+    width: 100px;
+    height: 40px; 
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .add-team:hover{
+    background-color: #5cb1f9;
+  }
