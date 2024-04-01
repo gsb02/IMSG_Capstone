@@ -81,7 +81,7 @@ export const createEquipment = async (req, res, next) => {
         await Log.createLogItem("Create", "Equipment", equipmentName);
 
         res.status(200).json(equipment);
-        
+
     } catch(error){
         console.log(error);
         res.status(500).json({error: "error creating equipment"})

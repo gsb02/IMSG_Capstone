@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
-
+import './teams.css'
 const AddTeams = () => {
   const [teamName, setTeamName] = useState('');
   const [teamDesc, setTeamDesc] = useState('');
@@ -58,7 +58,9 @@ const AddTeams = () => {
         <label style={{ marginBottom: '5px' }}>Year:</label>
         <input type="text" value={season} onChange={(e) => setYear(e.target.value)} style={{ width: '300px', height: '30px' }} />
         <br />
-        <button type="submit" style={{ width: '310px', height: '40px', marginTop: '20px' }}>Submit</button>
+        <div style={{display: 'flex', justifyContent: 'center', marginTop: '-10px', marginBottom: '10px'}}>
+        <button type="submit" className="add-team">Add Team</button>
+        </div>
       </form>
       <button onClick={handleBackClick}>Back</button>
     </div>

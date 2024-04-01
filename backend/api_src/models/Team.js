@@ -1,11 +1,15 @@
 import promisePool from "../config/dbConfig.js";
+ 
+/*
+Sean Radel
+March 22, 2024
+The purpose of this module is to define the Team class that represents -
+properties like Team Name, Description of Team, Gender, Season, and SportID.
 
-//`teamId` smallint NOT NULL AUTO_INCREMENT,
-//`teamName` varchar(255) NOT NULL,
-//`teamDesc` text,
-//`sportID` smallint NOT NULL,
-//'gender` char(1) DEFAULT NULL,
-//`season` year DEFAULT NULL,
+The class includes methods that can interact with the databse using SQL Queries
+
+*/
+
 
 export default class Team {
     constructor(teamID, teamName, teamDesc, sportID, gender, season) {
