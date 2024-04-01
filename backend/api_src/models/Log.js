@@ -28,7 +28,7 @@ export default class Log {
     }
 
     static async getAllLogEntries(){
-        console.log("here");
+        
         let sqlQuery = `
         SELECT * FROM history
         ORDER BY date DESC
