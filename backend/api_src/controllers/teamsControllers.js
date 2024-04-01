@@ -1,4 +1,6 @@
-import Team from '../models/Team.js'
+import Team from '../models/Team.js';
+import Log from '../models/Log.js';
+import e from 'express';
 
 export const getAllTeams = async (req, res, next) => {
     
@@ -20,9 +22,14 @@ export const createNewTeam = async (req, res, next) => {
     
     team = await team.createTeam();
     console.log(team)
-    res.status(200).json(team);
-    } catch (error) {
 
+    await Log.createLogItem("Create", "Team", teamName);
+    res.status(200).json(team);
+
+    
+
+    } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Failed to create new team' });
     }
 }
@@ -32,7 +39,7 @@ export const getTeamByID = async (req, res, next) => {
     try{
     let teamID = req.params.teamID;
     let [team, _] = await Team.getTeamByID(teamID);
-
+    
     res.status(200).json(team);
     } catch (error) {
 
@@ -45,6 +52,8 @@ export const deleteTeam = async (req, res, next) => {
     try{
     let teamID = req.params.teamID;
     let [team, _] = await Team.deleteTeam(teamID);
+    
+    await Log.createLogItem("Delete", "Team", teamName);
 
     res.status(200).json(team);
     } catch (error) {
@@ -63,6 +72,8 @@ export const updateTeam = async (req, res, next) => {
     let gender = req.params.gender;
     let season = req.params.season;
     let [team, _] = await Team.updateTeam(teamID, teamName, teamDesc, sportID, gender, season);
+    
+    await Log.createLogItem("Edit", "Team", teamName);
 
     res.status(200).json(team);
     } catch (error) {
@@ -80,6 +91,9 @@ export const assignEquipmentToTeam = async (req, res, next) => {
     let teamID = req.params.teamID;
 
     let [team, _] = await Team.assignEquipmentToTeam(teamID, equipmentID);
+
+    await Log.createLogItem("Assignment", "Equipment", teamName);
+
     res.status(200).json(team);
     } catch (error) {
         res.status(500).json({ error: 'Failed to assign equipment to team' });
