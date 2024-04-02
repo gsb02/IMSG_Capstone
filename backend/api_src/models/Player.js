@@ -42,6 +42,7 @@ export default class Player {
         let sqlQuery = `
         DELETE FROM players
         WHERE playerID = ${playerID}
+
         `;
 
         
@@ -121,6 +122,17 @@ export default class Player {
             INNER JOIN player_equipment ON player_equipment.equipmentID = equipment.equipmentID
             WHERE player_equipment.playerID = ${playerID}
             `;
+    
+        return promisePool.execute(sqlQuery);
+    }
+
+    static async deleteAllEquipmentByDeletePlayerID(playerID) {
+        let sqlQuery = `
+       
+        DELETE FROM equipment
+        WHERE equipmentID IN (SELECT FROM player_equipment WHERE playerID = '${playerID}')
+            
+        `;
     
         return promisePool.execute(sqlQuery);
     }

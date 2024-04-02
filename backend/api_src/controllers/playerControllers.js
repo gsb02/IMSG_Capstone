@@ -42,7 +42,13 @@ export const getPlayerByID = async (req, res, next) => {
 export const deletePlayerByID = async (req, res, next) => {
     try {
         let playerID = req.params.playerID;
-        let [player, _] = await Player.deletePlayerByID(playerID);
+        //let [player, _] = await Player.deleteAllEquipmentByDeletePlayerID(playerID);
+        //let [player, _] = await Player.deletePlayerByID(playerID);
+        let [player, _] = await Promise.all([
+            Player.deleteAllEquipmentByDeletePlayerID(playerID),
+            Player.deletePlayerByID(playerID)
+        ]);
+        
 
         await Log.createLogItem("Delete", "Player", playerName);
 
