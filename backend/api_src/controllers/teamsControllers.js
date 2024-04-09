@@ -51,7 +51,11 @@ export const deleteTeam = async (req, res, next) => {
     //res.send("delete team by id route");
     try{
     let teamID = req.params.teamID;
-    let [team, _] = await Team.deleteTeam(teamID);
+    let [team, _] = await Promise.all([
+        Team.deleteAllEquipmentByDeletePlayerID(teamID),
+        Team.deleteTeam(teamID)
+    ]);
+   // let [team, _] = await Team.deleteTeam(teamID);
     
     await Log.createLogItem("Delete", "Team", teamName);
 

@@ -130,5 +130,16 @@ static async getEquipmentByTeamID(teamID) {
 
 }
 
+static async deleteAllEquipmentByDeleteTeamID(teamID) {
+    let sqlQuery = `
+   
+    DELETE FROM equipment
+    WHERE equipmentID IN (SELECT FROM team_equipment WHERE teamID = '${teamID}')
+        
+    `;
+
+    return promisePool.execute(sqlQuery);
+}
+
 
 }
