@@ -42,7 +42,7 @@ const Players = () => {
         if (deletePlayerId !== null) {
           try {
             await axios.delete(`http://localhost:3000/players/player${deletePlayerId}`);
-            setPlayers(players.filter(player => player.playerId !== deletePlayerId));
+            setPlayers(players.filter(player => player.playerID !== deletePlayerId));
             setShowModal(false);
             setDeletePlayerId(null);
           } catch (error) {
@@ -117,11 +117,11 @@ const Players = () => {
                         <td>{player.isCoach ? 'Yes' : 'No'}</td>
                         <td>{player.jerseyNum}</td>
                         <td>
-                            <Link to="/assignEquipToPlayer" state={{ playerId: player.playerId, teamID: teamID, teamName: teamName }}>
+                            <Link to="/assignEquipToPlayer" state={{ playerID: player.playerID, playerName: player.playerName, teamID: teamID, teamName: teamName }}>
                                  <button className="button-link">Assign Equipment</button>
                             </Link>
                             <button>Edit</button>
-                            <button onClick={() => initiateDelete(player.playerId)}>Delete</button>
+                            <button onClick={() => initiateDelete(player.playerID)}>Delete</button>
                         </td>
                     </tr>
                 ))}

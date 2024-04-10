@@ -44,11 +44,11 @@ export const deletePlayerByID = async (req, res, next) => {
         let playerID = req.params.playerID;
         let [player, _] = await Player.deletePlayerByID(playerID);
 
-        await Log.createLogItem("Delete", "Player", playerName);
+        await Log.createLogItem("Delete", "Player", playerID);
 
         res.status(200).json(player);
     } catch (error) {
-
+        console.log(error);
         res.status(500).json({ error: 'Failed to delete player' });
     }
 };

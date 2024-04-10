@@ -9,8 +9,12 @@ const AddPlayer = ({ onAddPlayer }) => {
     const passedTeamId = location.state?.teamID;
 
     const handleBackClick = () => {
-        navigate('/players', {state: {teamID: teamID, teamName: location.state?.teamName}});
+        navigate(-1); // Navigates to the previous page
     };
+    
+    //const handleBackClick = () => {
+        //navigate('/players', {state: {teamID: teamID, teamName: location.state?.teamName}});
+    //};
 
     const [teams, setTeams] = useState([]);
     const [isHovering, setIsHovering] = useState(false);

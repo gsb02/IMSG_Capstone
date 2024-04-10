@@ -5,7 +5,7 @@ const router = express.Router();
 // @route GET && POST - /posts/
 router.route("/").post(createNewPlayer);
 
-router.route("/team:teamID").get(getAllPlayers)
+router.route("/team:teamID").get(getAllPlayers);
 router.route("/player:playerID").get(getPlayerByID).delete(deletePlayerByID).put(updatePlayerByID);
 router.route("/team:teamID").get(getAllPlayers).delete(deleteAllPlayersByTeamID);
 
