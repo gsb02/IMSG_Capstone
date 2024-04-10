@@ -62,7 +62,13 @@ export const deletePlayerByID = async (req, res, next) => {
 export const deleteAllPlayersByTeamID = async (req, res, next) => {
     try {
         let teamID = req.params.teamID;
-        let [player, _] = await Player.deleteAllPlayersByTeamID(teamID);
+        let IDs = await Player.getAllPlayerIDsByTeamID(teamID);
+        IDs.forEach(id => {
+            deletePlayerByID({ params: { playerID: id } }, res, next);
+          });
+          
+
+        //let [player, _] = await Player.deleteAllPlayersByTeamID(teamID);
         res.status(200).json(player);
     } catch (error) {
 

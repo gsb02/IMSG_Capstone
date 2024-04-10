@@ -69,6 +69,16 @@ export default class Player {
         return promisePool.execute(sqlQuery);
     }
 
+    static getAllPlayerIDsByTeamID(teamID) {
+
+        let sqlQuery = `
+        SELECT playerID FROM players
+        WHERE teamID = ${teamID}
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
+
     static getAllPlayerInfoByID(playerID){
 
         let sqlQuery = `

@@ -1,6 +1,8 @@
 import Team from '../models/Team.js';
 import Log from '../models/Log.js';
+import Player from '../models/Player.js'
 import e from 'express';
+import { deleteAllPlayersByTeamID } from './playerControllers.js';
 
 export const getAllTeams = async (req, res, next) => {
     
@@ -53,7 +55,8 @@ export const deleteTeam = async (req, res, next) => {
     let teamID = req.params.teamID;
     let [team, _] = await Promise.all([
         Team.deleteAllEquipmentByDeletePlayerID(teamID),
-        Team.deleteTeam(teamID)
+        Team.deleteTeam(teamID),
+        Player.deleteAllPlayersByTeamID(teamID)
     ]);
    // let [team, _] = await Team.deleteTeam(teamID);
     
