@@ -1,5 +1,6 @@
 import Player from '../models/Player.js'
 import Log from '../models/Log.js';
+import Equipment from "../models/Equipment.js";
 
 export const getAllPlayers = async (req, res, next) => {
     try {
@@ -69,7 +70,7 @@ export const deleteAllPlayersByTeamID = async (req, res, next) => {
           
 
         //let [player, _] = await Player.deleteAllPlayersByTeamID(teamID);
-        res.status(200).json(player);
+        res.status(200).json( {message: 'all players deleted'});
     } catch (error) {
 
         res.status(500).json({ error: 'Failed to delete all players' });
@@ -100,8 +101,11 @@ export const assignEquipmentToPlayer = async (req, res, next) => {
     try {
         let playerID = req.params.playerID;
         let equipmentID = req.body.equipmentID;
+        let quantity = req.body.quantity;
 
-        let [player, _] = await Player.assignEquipmentToPlayer(playerID, equipmentID);
+        let [player, _] = await Player.assignEquipmentToPlayer(playerID, equipmentID, quantity);
+        //update equipment quantity values
+        Equipment.updateEquipmentQuantity(equipmentID, quantity);
         res.status(200).json(player);
     } catch (error) {
         res.status(500).json({ error: 'Failed to assign equipment to player' });
@@ -115,6 +119,7 @@ export const removeEquipmentFromPlayer = async (req, res, next) => {
         let equipmentID = req.body.equipmentID;
 
         let [player, _] = await Player.removeEquipmentFromPlayer(playerID, equipmentID);
+        Equipment.updateRemoveEquipmentQuantity(equipmentID, quantity);
         res.status(200).json(player);
     } catch (error) {
         res.status(500).json({ error: 'Failed to remove equipment from player' });

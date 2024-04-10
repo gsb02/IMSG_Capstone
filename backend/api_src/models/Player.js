@@ -105,10 +105,10 @@ export default class Player {
         return promisePool.execute(sqlQuery);
     }
 
-    static async assignEquipmentToPlayer(playerID, equipmentID) {
+    static async assignEquipmentToPlayer(playerID, equipmentID, quantity) {
         let sqlQuery = `
-            INSERT INTO player_equipment (playerID, equipmentID)
-            VALUES ('${playerID}', '${equipmentID}')
+            INSERT INTO player_equipment (playerID, equipmentID, quantity)
+            VALUES ('${playerID}', '${equipmentID}', '${quantity}' )
         `;
     
         return promisePool.execute(sqlQuery);
