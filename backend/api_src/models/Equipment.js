@@ -117,4 +117,25 @@ export default class Equipment {
 
         return promisePool.execute(sqlQuery);
     }
+    //update equipment quantity values
+    static async updateEquipmentQuantity(equipmentID, quantity){
+        let sqlQuery = `
+        UPDATE equipment
+        SET storedQuantity = storedQuantity - ${quantity},
+        distQuantity = distQuantity + ${quantity}
+        WHERE equipmentID = '${equipmentID}'
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
+    static async updateRemoveEquipmentQuantity(equipmentID, quantity){
+        let sqlQuery = `
+        UPDATE equipment
+        SET storedQuantity = storedQuantity + ${quantity},
+        distQuantity = distQuantity - ${quantity}
+        WHERE equipmentID = '${equipmentID}'
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
 }

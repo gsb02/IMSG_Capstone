@@ -1,6 +1,8 @@
 import Team from '../models/Team.js';
 import Log from '../models/Log.js';
+import Player from '../models/Player.js'
 import e from 'express';
+import { deleteAllPlayersByTeamID } from '../controllers/playerControllers.js';
 
 export const getAllTeams = async (req, res, next) => {
     
@@ -51,7 +53,12 @@ export const deleteTeam = async (req, res, next) => {
     //res.send("delete team by id route");
     try{
     let teamID = req.params.teamID;
-    let [team, _] = await Team.deleteTeam(teamID);
+    let [team, _] = await Promise.all([
+        deleteAllPlayersByTeamID(teamID),
+        Team.deleteTeam(teamID)
+        
+    ]);
+   // let [team, _] = await Team.deleteTeam(teamID);
     
     await Log.createLogItem("Delete", "Team", teamName);
 
@@ -93,6 +100,8 @@ export const assignEquipmentToTeam = async (req, res, next) => {
     let [team, _] = await Team.assignEquipmentToTeam(teamID, equipmentID);
 
     await Log.createLogItem("Assignment", "Equipment", teamName);
+    await Equipment.updateEquipmentQuantity(equipmentID, quantity);
+    
 
     res.status(200).json(team);
     } catch (error) {
@@ -105,6 +114,7 @@ export const removeEquipmentFromTeam = async (req, res, next) => {
     try{
     let teamID = req.params.teamID;
     let [team, _] = await Team.removeEquipmentFromTeam(teamID, equipmentID);
+    await Equipment.updateRemoveEquipmentQuantity(equipmentID, quantity);
     res.status(200).json(team);
     } catch (error) {
         res.status(500).json({ error: 'Failed to remove equipment from team' });
