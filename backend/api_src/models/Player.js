@@ -42,6 +42,7 @@ export default class Player {
         let sqlQuery = `
         DELETE FROM players
         WHERE playerID = ${playerID}
+
         `;
 
         
@@ -62,6 +63,16 @@ export default class Player {
 
         let sqlQuery = `
         SELECT * FROM players
+        WHERE teamID = ${teamID}
+        `;
+
+        return promisePool.execute(sqlQuery);
+    }
+
+    static getAllPlayerIDsByTeamID(teamID) {
+
+        let sqlQuery = `
+        SELECT playerID FROM players
         WHERE teamID = ${teamID}
         `;
 
@@ -94,10 +105,10 @@ export default class Player {
         return promisePool.execute(sqlQuery);
     }
 
-    static async assignEquipmentToPlayer(playerID, equipmentID) {
+    static async assignEquipmentToPlayer(playerID, equipmentID, quantity) {
         let sqlQuery = `
-            INSERT INTO player_equipment (playerID, equipmentID)
-            VALUES ('${playerID}', '${equipmentID}')
+            INSERT INTO player_equipment (playerID, equipmentID, quantity)
+            VALUES ('${playerID}', '${equipmentID}', '${quantity}' )
         `;
     
         return promisePool.execute(sqlQuery);
@@ -121,6 +132,18 @@ export default class Player {
             INNER JOIN player_equipment ON player_equipment.equipmentID = equipment.equipmentID
             WHERE player_equipment.playerID = ${playerID}
             `;
+    
+        return promisePool.execute(sqlQuery);
+    }
+
+    static async deleteAllEquipmentByDeletePlayerID(playerID) {
+        let sqlQuery = `
+       
+        SET @deletedEquipmentIDs = (SELECT GROUP_CONCAT(equipmentID) FROM player_equipment WHERE playerID = ${playerID});
+        DELETE FROM player_equipment WHERE playerID = ${playerID};
+	    DELETE FROM equipment WHERE FIND_IN_SET(equipmentID, @deletedEquipmentIDs);
+            
+        `;
     
         return promisePool.execute(sqlQuery);
     }
