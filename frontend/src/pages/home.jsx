@@ -12,11 +12,11 @@ const HomePage = () => {
               <Link to="/teams" className="cs-item">
                   <span className="cs-name">Teams</span>
               </Link>
-              <Link to="/players" className="cs-item">
-                  <span className="cs-name">Players</span>
-              </Link>
               <Link to="/equipment" className="cs-item">
                   <span className="cs-name">Equipment</span>
+              </Link>
+              <Link to="/logs" className="cs-item">
+                  <span className="cs-name">Logs</span>
               </Link>
           </ul>
         </div>
