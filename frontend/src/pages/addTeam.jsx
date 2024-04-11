@@ -48,7 +48,7 @@ const AddTeams = () => {
         <label style={{ marginBottom: '5px' }}>Select Sport:</label>
         <select value={sportID} onChange={(e) => setSportID(e.target.value)} style={{ width: '310px', height: '30px'}}>
         {sports.map(sport => (
-        <option key={sport.sportId} value={sport.sportId}>{sport.sportName}</option>
+        <option key={sport.sportID} value={sport.sportID}>{sport.sportName}</option>
           ))}
         </select>
         <br />

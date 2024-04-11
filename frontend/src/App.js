@@ -8,6 +8,7 @@ import HomePage from './pages/home';
 import Players from './pages/players';
 import AddEquip from './pages/AddEquip';
 import AssignEquiptoTeam from './pages/assignEquiptoTeam';
+import LogPage from './pages/logs';
 import "./style.css";
 function App() {
   
@@ -17,9 +18,7 @@ function App() {
         <li><a id="li" href="./">Home</a></li>
         <li><a id="li" href="./teams">Teams</a></li>
         <li><a id="li" href="./equipment">Equipment</a></li>
-        <li><a id="li" href="./players">Players</a></li>
-        <li><a id="li" href="./settings">Settings</a></li>
-        <li><a id="li" href="">Logoff</a></li>
+        <li><a id="li" href="./logs">Logs</a></li>
       </ul>
       <BrowserRouter>
         <Routes>
@@ -30,7 +29,8 @@ function App() {
           <Route path="/teams" element={<Teams/>}/>
           <Route path="/addTeam" element={<AddTeams/>}/>
           <Route path="/players" element={<Players/>} />   
-          <Route path="/addPlayer" element={<AddPlayer/>}></Route>    
+          <Route path="/addPlayer" element={<AddPlayer/>}></Route>  
+          <Route path="/logs" element={<LogPage/>}></Route> 
         </Routes>
       </BrowserRouter>
     </div>
