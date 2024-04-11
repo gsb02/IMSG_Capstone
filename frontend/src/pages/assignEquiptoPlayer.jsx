@@ -9,6 +9,9 @@ const AssignEquiptoPlayers = () => {
 
     const [allEquipment, setAllEquipment] = useState([]);
     const [assignedEquipment, setAssignedEquipment] = useState([]);
+    const [assignInputQuantities, setAssignInputQuantities] = useState({});
+    const [removeInputQuantities, setRemoveInputQuantities] = useState({});
+
 
     useEffect(() => {
         fetchAllEquipment();
@@ -17,8 +20,14 @@ const AssignEquiptoPlayers = () => {
 
     const fetchAllEquipment = async () => {
         try {
-          const response = await axios.get('http://localhost:3000/equipment');
-          setAllEquipment(response.data);
+            const response = await axios.get('http://localhost:3000/equipment');
+            setAllEquipment(response.data);
+            const initialQuantities = {};
+            response.data.forEach(equip => {
+                initialQuantities[equip.equipmentID] = '';
+            });
+            setAssignInputQuantities(initialQuantities);
+            setRemoveInputQuantities(initialQuantities);
         } catch (error) {
           console.error('Error fetching equipment:', error);
         }
@@ -33,11 +42,15 @@ const AssignEquiptoPlayers = () => {
         }
     };
 
-    const assignEquipmentToPlayer = async (equipID) => {
+    const assignEquipmentToPlayer = async (equipmentID, quantity) => {
         try {
+            if (quantity < 1) {
+                alert("Quantity must be at least 1.");
+                return;
+            }
             const equipmentData = {
-                playerID, 
-                equipmentID: equipID,
+                equipmentID: equipmentID,
+                quantity: quantity
             };
 
             await axios.post(`http://localhost:3000/players/${playerID}/equipment`, equipmentData);
@@ -48,6 +61,32 @@ const AssignEquiptoPlayers = () => {
         }
     };
 
+    const removeEquipmentFromPlayer = async (equipmentID, quantityToRemove) => {
+        try {
+            const updatedQuantity = { quantity: quantityToRemove };
+            console.log(updatedQuantity.quantity);
+            await axios.post(`http://localhost:3000/players/${playerID}/equipment/${equipmentID}`, updatedQuantity);
+            fetchAssignedEquipment();
+        } catch (error) {
+            console.error('Error updating equipment for player:', error);
+        }
+    };
+    
+
+    const handleQuantityChange = (equipmentID, quantity) => {
+        setAssignInputQuantities({
+            ...assignInputQuantities,
+            [equipmentID]: quantity
+        });
+    };
+
+    const handleRemoveQuantityChange = (equipmentID, quantity) => {
+        setRemoveInputQuantities({
+            ...removeInputQuantities,
+            [equipmentID]: Math.abs(quantity) // Store as positive for simplicity, signify removal elsewhere
+        });
+    };
+
     return (
         <div>
             <h2>Assign Equipment to {playerName}</h2>
@@ -55,7 +94,16 @@ const AssignEquiptoPlayers = () => {
                 <h3>Assigned Equipment</h3>
                 <ul>
                     {assignedEquipment.map((equip, index) => (
-                        <li key={index}>{equip.equipmentName} - {equip.equipmentType}</li>
+                        <li key={index}>
+                            {equip.equipmentName} - {equip.quantity} - {equip.equipmentID}
+                            <input
+                                type="number"
+                                value={removeInputQuantities[equip.equipmentID] || ""}
+                                onChange={(e) => handleRemoveQuantityChange(equip.equipmentID, e.target.value)}
+                                min="1"
+                            />
+                            <button onClick={() => removeEquipmentFromPlayer(equip.equipmentID, parseInt(removeInputQuantities[equip.equipmentID] || 0))}>Remove</button>
+                        </li>
                     ))}
                 </ul>
             </div>
@@ -65,6 +113,8 @@ const AssignEquiptoPlayers = () => {
                     <tr>
                         <th scope="col">Equipment</th>
                         <th scope="col">Equipment Type</th>
+                        <th scope="col">Stored Quantity</th>
+                        <th scope="col">Quantity to Assign</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
@@ -73,8 +123,17 @@ const AssignEquiptoPlayers = () => {
                         <tr key={index}>
                             <td>{equip.equipmentName}</td>
                             <td>{equip.equipmentType}</td>
+                            <td>{equip.storedQuantity}</td>
                             <td>
-                                <button onClick={() => assignEquipmentToPlayer(equip.ID)}>Add</button>
+                                <input
+                                    type="number"
+                                    value={assignInputQuantities[equip.equipmentID] || ""}
+                                    onChange={(e) => handleQuantityChange(equip.equipmentID, e.target.value)}
+                                    min="1"
+                                />
+                            </td>
+                            <td>
+                            <button onClick={() => assignEquipmentToPlayer(equip.equipmentID, parseInt(assignInputQuantities[equip.equipmentID] || 0))}>Add</button>
                             </td>
                         </tr>
                     ))}

@@ -11,5 +11,5 @@ router.route("/team:teamID").get(getAllPlayers).delete(deleteAllPlayersByTeamID)
 
 
 router.route("/:playerID/equipment").get(getEquipmentByPlayerID).post(assignEquipmentToPlayer);
-router.route("/:playerID/equipment/:equipmentID").delete(removeEquipmentFromPlayer);
+router.route("/:playerID/equipment/:equipmentID").post(removeEquipmentFromPlayer);
 export default router;

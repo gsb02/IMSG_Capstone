@@ -127,7 +127,7 @@ export default class Player {
     //get all equipment assigned to a playerID
     static async getEquipmentByPlayerID(playerID) {
         let sqlQuery = `
-            SELECT equipment.*
+            SELECT equipment.*, player_equipment.quantity
             FROM equipment
             INNER JOIN player_equipment ON player_equipment.equipmentID = equipment.equipmentID
             WHERE player_equipment.playerID = ${playerID}

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import './teams.css'
+import './addTeam.css'
+
 const AddTeams = () => {
   const [teamName, setTeamName] = useState('');
   const [teamDesc, setTeamDesc] = useState('');
@@ -9,6 +11,7 @@ const AddTeams = () => {
   const [gender, setGender] = useState('');
   const [season, setYear] = useState('');
   const [sports, setSports] = useState([]);
+  const [isHovering, setIsHovering] = useState(false);
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
@@ -41,7 +44,8 @@ const AddTeams = () => {
     }
     console.log(sports);
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div className = "container">
+      <button onClick={handleBackClick} className={`backButton ${isHovering ? 'hover' : ''}`} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>Back</button>
       <form onSubmit={handleSubmit} style={{ marginBottom: '20px', display: 'flex', flexDirection: 'column' }}>
         <label style={{ marginBottom: '5px', marginTop:'20px' }}>Team Name:</label>
         <input type="text" value={teamName} onChange={(e) => setTeamName(e.target.value)} style={{ width: '300px', height: '30px' }} required />
@@ -67,7 +71,6 @@ const AddTeams = () => {
         <button type="submit" className="add-team">Add Team</button>
         </div>
       </form>
-      <button onClick={handleBackClick}>Back</button>
     </div>
   );
 };

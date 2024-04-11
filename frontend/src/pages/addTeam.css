@@ -1,0 +1,8 @@
+.container { /*container for all elements on page*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    position: relative;
+    width: 100%;
+  }
