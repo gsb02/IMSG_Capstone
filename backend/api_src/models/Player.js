@@ -139,8 +139,9 @@ export default class Player {
     static async deleteAllEquipmentByDeletePlayerID(playerID) {
         let sqlQuery = `
        
-        DELETE FROM equipment
-        WHERE equipmentID IN (SELECT FROM player_equipment WHERE playerID = '${playerID}')
+        SET @deletedEquipmentIDs = (SELECT GROUP_CONCAT(equipmentID) FROM player_equipment WHERE playerID = ${playerID});
+        DELETE FROM player_equipment WHERE playerID = ${playerID};
+	    DELETE FROM equipment WHERE FIND_IN_SET(equipmentID, @deletedEquipmentIDs);
             
         `;
     
