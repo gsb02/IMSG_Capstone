@@ -8,6 +8,7 @@ import HomePage from './pages/home';
 import Players from './pages/players';
 import AddEquip from './pages/AddEquip';
 import AssignEquiptoTeam from './pages/assignEquiptoTeam';
+import AssignEquiptoPlayers from './pages/assignEquiptoPlayer';
 import "./style.css";
 function App() {
   
@@ -30,7 +31,8 @@ function App() {
           <Route path="/teams" element={<Teams/>}/>
           <Route path="/addTeam" element={<AddTeams/>}/>
           <Route path="/players" element={<Players/>} />   
-          <Route path="/addPlayer" element={<AddPlayer/>}></Route>    
+          <Route path="/addPlayer" element={<AddPlayer/>}/>
+          <Route path="/assignEquiptoPlayer" element={<AssignEquiptoPlayers/>}></Route>  
         </Routes>
       </BrowserRouter>
     </div>

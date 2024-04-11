@@ -6,11 +6,15 @@ import './addPlayer.css';
 const AddPlayer = ({ onAddPlayer }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const passedTeamId = location.state?.teamId;
+    const passedTeamId = location.state?.teamID;
 
     const handleBackClick = () => {
-        navigate('/players', {state: {teamId: teamID, teamName: location.state?.teamName}});
+        navigate(-1); // Navigates to the previous page
     };
+    
+    //const handleBackClick = () => {
+        //navigate('/players', {state: {teamID: teamID, teamName: location.state?.teamName}});
+    //};
 
     const [teams, setTeams] = useState([]);
     const [isHovering, setIsHovering] = useState(false);
@@ -38,7 +42,7 @@ const AddPlayer = ({ onAddPlayer }) => {
         e.preventDefault();
         try {
             await axios.post('http://localhost:3000/players', { playerName, teamID: Number(teamID), age, grade, isCoach: Number(isCoach), jerseyNum });
-            navigate('/players', {state: { teamId: teamID, teamName: location.state?.teamName}});
+            navigate('/players', {state: { teamID: teamID, teamName: location.state?.teamName}});
         } catch (error) {
             console.error('There was an error adding the player:', error);
         }

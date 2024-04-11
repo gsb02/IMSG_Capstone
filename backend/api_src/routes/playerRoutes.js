@@ -5,11 +5,11 @@ const router = express.Router();
 // @route GET && POST - /posts/
 router.route("/").post(createNewPlayer);
 
-router.route("/team:teamID").get(getAllPlayers)
+router.route("/team:teamID").get(getAllPlayers);
 router.route("/player:playerID").get(getPlayerByID).delete(deletePlayerByID).put(updatePlayerByID);
 router.route("/team:teamID").get(getAllPlayers).delete(deleteAllPlayersByTeamID);
 
 
 router.route("/:playerID/equipment").get(getEquipmentByPlayerID).post(assignEquipmentToPlayer);
-router.route("/:playerID/equipment/:equipmentID").delete(removeEquipmentFromPlayer);
+router.route("/:playerID/equipment/:equipmentID").post(removeEquipmentFromPlayer);
 export default router;
