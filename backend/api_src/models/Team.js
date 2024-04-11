@@ -135,10 +135,10 @@ static async deleteAllEquipmentByDeleteTeamID(teamID) {
    
     SET @deletedEquipmentIDs = (SELECT GROUP_CONCAT(equipmentID) FROM team_equipment WHERE teamID = ${teamID});
     DELETE FROM team_equipment WHERE teamID = ${playerID};
-    DELETE FROM equipment WHERE FIND_IN_SET(equipmentID, @deletedEquipmentIDs);
+    
         
     `;
-
+//DELETE FROM equipment WHERE FIND_IN_SET(equipmentID, @deletedEquipmentIDs);
     return promisePool.execute(sqlQuery);
 }
 

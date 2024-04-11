@@ -3,15 +3,18 @@ import axios from "axios"
 import { useEffect, useState, table, Link } from "react"
 import { useNavigate } from "react-router-dom"
 import './equipment.css';
+import Modal from './Modal.jsx';
 
 const Equipment = () => {
     const [equipment, setEquipment] = useState( [] )
     const navigate = useNavigate();
 
+    const [showModal, setShowModal] = useState(false);
+    const [deleteEquipmentID, setDeleteEquipmentID] = useState(0);
+
     const fetchAllEquipment = async ()=>{ //Just the general get all equipment call
         try {
             const res = await axios.get("http://localhost:3000/equipment")
-            console.log(res)
             setEquipment(res.data)
         } catch (error) {
             console.log(error)
@@ -42,11 +45,32 @@ const Equipment = () => {
     }, [equipment])
 
     const handleClick = () => {
-        navigate('/AddEquip')
+        navigate('/AddEquip');
     }
     const handleAssigntoTeam = () => {
-        navigate('/assignEquiptoTeam')
+        navigate('/assignEquiptoTeam');
+        
     }
+
+    const initiateDelete = (equipmentID) => {
+        setShowModal(true);
+        setDeleteEquipmentID(equipmentID);
+    }
+
+    const handleDelete = async () => {
+        if (deleteEquipmentID !== null) {
+          try {
+            console.log(deleteEquipmentID)
+            Number(deleteEquipmentID);
+            await axios.delete(`http://localhost:3000/equipment/${deleteEquipmentID}`);
+            setShowModal(false);
+            setDeleteEquipmentID(0);
+            navigate('/equipment');
+          } catch (error) {
+            console.error('There was an error deleting equipment:', error);
+          }
+        }
+      }
 
     return (
         <div className="table-container">
@@ -88,10 +112,16 @@ const Equipment = () => {
                         <td>
                             {equip.lastDistributed}
                         </td>
+                        <td>
+                            <button onClick={() => initiateDelete(equip.equipmentID)}>Delete</button>
+                        </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
+            <Modal isOpen={showModal} onClose={() => setShowModal(false)} onConfirm={handleDelete}>
+                Are you sure you want to delete this equipment?
+            </Modal>
         </div>
     );
 }

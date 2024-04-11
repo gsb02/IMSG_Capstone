@@ -96,7 +96,6 @@ export const deleteEquipmentByID = async (req, res, next) => {
         let equipmentType = await Equipment.getEquipmentTypeByID(equipmentID);
 
         //delete from equipment
-        let [equipment, _] = await Equipment.deleteEquipmentByID(equipmentID);
         
         //remove equipment sub attributes
         switch (equipmentType){
@@ -122,12 +121,13 @@ export const deleteEquipmentByID = async (req, res, next) => {
             default:
                 break;
         }
-
-        await Log.createLogItem("Delete", "Equipment", equipmentName);
+        let [equipment, _] = await Equipment.deleteEquipmentByID(equipmentID);
+        await Log.createLogItem("Delete", "Equipment", equipmentID);
 
         res.status(200).json(equipment);
 
     } catch (error) {
+        console.log(error)
         res.status(500).json({error: "error deleting equipment"})
     }
     

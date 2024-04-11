@@ -49,17 +49,17 @@ const Teams = () => {
                     </thead>
                     <tbody>
                         {teams.map((team, index) => (
-                            <tr key={team.teamId}>
+                            <tr key={team.teamID}>
                                 <td>{team.teamName}</td>
                                 <td>
-                                    <Link to="/addPlayer" state={{ teamId: team.teamId, teamName: team.teamName }}>
+                                    <Link to="/addPlayer" state={{ teamID: team.teamID, teamName: team.teamName }}>
                                         <button>Add Player</button>
                                     </Link>
-                                    <Link to="/players" state={{ teamId: team.teamId, teamName: team.teamName }}>
+                                    <Link to="/players" state={{ teamID: team.teamID, teamName: team.teamName }}>
                                         <button>View Roster</button>
                                     </Link>
                                     <button>Edit</button>
-                                    <button onClick={() => handleDelete(team.teamId)}>Delete</button>
+                                    <button onClick={() => handleDelete(team.teamID)}>Delete</button>
                                 </td>
                             </tr>
                         ))}

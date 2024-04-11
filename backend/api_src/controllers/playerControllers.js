@@ -51,11 +51,11 @@ export const deletePlayerByID = async (req, res, next) => {
         ]);
         
 
-        await Log.createLogItem("Delete", "Player", playerName);
+        await Log.createLogItem("Delete", "Player", playerID);
 
         res.status(200).json(player);
     } catch (error) {
-
+        console.log(error);
         res.status(500).json({ error: 'Failed to delete player' });
     }
 };
@@ -108,6 +108,7 @@ export const assignEquipmentToPlayer = async (req, res, next) => {
         Equipment.updateEquipmentQuantity(equipmentID, quantity);
         res.status(200).json(player);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Failed to assign equipment to player' });
     }
 }
@@ -116,12 +117,14 @@ export const assignEquipmentToPlayer = async (req, res, next) => {
 export const removeEquipmentFromPlayer = async (req, res, next) => {
     try {
         let playerID = req.params.playerID;
-        let equipmentID = req.body.equipmentID;
-
+        let equipmentID = req.params.equipmentID;
+        let {quantity} = req.body;
+        console.log(quantity);
         let [player, _] = await Player.removeEquipmentFromPlayer(playerID, equipmentID);
         Equipment.updateRemoveEquipmentQuantity(equipmentID, quantity);
         res.status(200).json(player);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Failed to remove equipment from player' });
     }
 }

@@ -7,7 +7,7 @@ import Modal from './Modal.jsx';
 const Players = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { teamId, teamName } = location.state || {};
+    const { teamID, teamName } = location.state || {};
 
     const [showModal, setShowModal] = useState(false);
     const [deletePlayerId, setDeletePlayerId] = useState(null);
@@ -23,8 +23,9 @@ const Players = () => {
     };
 
     const fetchPlayers = async () => {
+        console.log(teamID);
         try {
-            const response = await axios.get(`http://localhost:3000/players/team${teamId}`);
+            const response = await axios.get(`http://localhost:3000/players/team${teamID}`);
             setPlayers(response.data);
         } catch (error) {
             console.error('There was an error fetching the players:', error);
@@ -32,16 +33,16 @@ const Players = () => {
     };
 
     useEffect(() => {
-        if(teamId){
+        if(teamID){
             fetchPlayers();
         }
-    }, [teamId]);
+    }, [teamID]);
 
     const handleDelete = async () => {
         if (deletePlayerId !== null) {
           try {
             await axios.delete(`http://localhost:3000/players/player${deletePlayerId}`);
-            setPlayers(players.filter(player => player.playerId !== deletePlayerId));
+            setPlayers(players.filter(player => player.playerID !== deletePlayerId));
             setShowModal(false);
             setDeletePlayerId(null);
           } catch (error) {
@@ -69,7 +70,7 @@ const Players = () => {
         <div className="table-container">
             <h1 style={{textAlign: "center"}}>{teamName ? `${teamName} Players` : 'Player List'}</h1>
             <div className="filters-container">
-                <Link to="/addPlayer" state={{ teamId: teamId, teamName: teamName}}> 
+                <Link to="/addPlayer" state={{ teamID: teamID, teamName: teamName}}> 
                     <button className="add-player">Add Player</button>
                 </Link>
                 <select value={classFilter} onChange={handleClassFilterChange}>
@@ -116,8 +117,11 @@ const Players = () => {
                         <td>{player.isCoach ? 'Yes' : 'No'}</td>
                         <td>{player.jerseyNum}</td>
                         <td>
+                            <Link to="/assignEquipToPlayer" state={{ playerID: player.playerID, playerName: player.playerName, teamID: teamID, teamName: teamName }}>
+                                 <button className="button-link">Assign Equipment</button>
+                            </Link>
                             <button>Edit</button>
-                            <button onClick={() => initiateDelete(player.playerId)}>Delete</button>
+                            <button onClick={() => initiateDelete(player.playerID)}>Delete</button>
                         </td>
                     </tr>
                 ))}

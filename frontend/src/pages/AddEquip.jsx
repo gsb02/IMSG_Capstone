@@ -21,6 +21,8 @@ const AddEquip = () => {
     const [lastDistributed, setLastDistributed] = useState('');
     const [sports, setSports] = useState([]);
     const [attributes, setAttributes1] = useState({});
+    const [jerseyNumbers, setJerseyNumbers] = useState({});
+
     // The attributes, being subtables, are created as empty tables, then handled down below as inputs are entered.
 
     const handleSubmit = async (e) => {
@@ -28,8 +30,9 @@ const AddEquip = () => {
         try {
             console.log(`submitting equipment`);
             console.log(attributes);
+            console.log(jerseyNumbers);
             await axios.post('http://localhost:3000/equipment', { equipmentName, storedQuantity, distQuantity, sportID, equipmentType, lastOrdered, lastDistributed, attributes });
-            //navigate('/equipment'); // Navigate after successful addition
+            navigate('/equipment'); // Navigate after successful addition
         } catch (error) {
                 console.error('There was an error adding the equipment:', error);
         }
@@ -106,6 +109,217 @@ const AddEquip = () => {
         }));
     }
     
+    const handleNameChange = (e) => {
+        let updatedValue = {};
+        let updatedName = (e.target.value);
+        updatedValue = {name: updatedName};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ6Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = (e.target.value);
+        updatedValue = {q_6: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+    
+    const handleQ65Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_6_5: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ7Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_7: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ75Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_7_5: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ8Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_8: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ85Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_8_5: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ9Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_9: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ95Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_9_5: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ10Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_10: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ105Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_10_5: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ11Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_11: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ115Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_11_5: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ12Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_12: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ125Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_12_5: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleQ13Change = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {q_13: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue
+        }));
+    }
+
+    const handleSmallJerseyChange = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {smallJerseys: updatedNum};
+        setJerseyNumbers(jerseyNumbers => ({
+            ...jerseyNumbers,
+            ...updatedValue
+        }));
+    }
+
+    const handleMediumJerseyChange = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {mediumJerseys: updatedNum};
+        setJerseyNumbers(jerseyNumbers => ({
+            ...jerseyNumbers,
+            ...updatedValue
+        }));
+    }
+
+    const handleLargeJerseyChange = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {largeJerseys: updatedNum};
+        setJerseyNumbers(jerseyNumbers => ({
+            ...jerseyNumbers,
+            ...updatedValue
+        }));
+    }
+
+    const handleXLJerseyChange = (e) => {
+        let updatedValue = {};
+        let updatedNum = Number(e.target.value);
+        updatedValue = {xLJerseys: updatedNum};
+        setJerseyNumbers(jerseyNumbers => ({
+            ...jerseyNumbers,
+            ...updatedValue
+        }));
+    }
+
+    const handleJerseyColorChange = (e) => {
+        let updatedValue = {};
+        let updatedNum = (e.target.value);
+        updatedValue = {color: updatedNum};
+        setAttributes1(attributes => ({
+            ...attributes,
+            ...updatedValue,
+            jerseyNumbers
+        }));
+    }
+
 
     //This fetches the sports for the sport dropdown menu
     useEffect(() => {
@@ -177,11 +391,11 @@ const AddEquip = () => {
                         </label>
                         <label>
                             Last Ordered Date: 
-                            <input style={inputStyle} type="text" value={lastOrdered} onChange={(e) => setLastOrdered(e.target.value)} required/>
+                            <input style={inputStyle} type="date" value={lastOrdered} onChange={(e) => setLastOrdered(e.target.value)} required/>
                         </label>
                         <label>
                             Last Distributed Date: 
-                            <input style={inputStyle} type="text" value={lastDistributed} onChange={(e) => setLastDistributed(e.target.value)} required/>
+                            <input style={inputStyle} type="date" value={lastDistributed} onChange={(e) => setLastDistributed(e.target.value)} required/>
                         </label>
                         <label>
                             Brand Name: 
@@ -213,11 +427,161 @@ const AddEquip = () => {
                         </label>
                         </div>
                     }
-                    {equipmentType === "2" && 
+                    {equipmentType === 2 && 
+                        <div style={formGroupStyle}>
                         <label>
-                        Equipment Name: 
-                        <input type="text" value={equipmentName} onChange={(e) => setEquipmentName(e.target.value)} required/>
+                            Equipment Name: 
+                            <input style={inputStyle} type="text" value={equipmentName} onChange={(e) => setEquipmentName(e.target.value)} required/>
                         </label>
+                        <label>
+                            Quantity Stored: 
+                            <input style={inputStyle} type="text" value={storedQuantity} onChange={(e) => setStoredQuantity(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Quantity Distributed: 
+                            <input style={inputStyle} type="text" value={distQuantity} onChange={(e) => setDistQuantity(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Last Ordered Date: 
+                            <input style={inputStyle} type="date" value={lastOrdered} onChange={(e) => setLastOrdered(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Last Distributed Date: 
+                            <input style={inputStyle} type="date" value={lastDistributed} onChange={(e) => setLastDistributed(e.target.value)} required/>
+                        </label>
+                        </div>
+                    }
+                    {equipmentType === 3 && 
+                        <div style={formGroupStyle}>
+                        <label>
+                            Equipment Name: 
+                            <input style={inputStyle} type="text" value={equipmentName} onChange={(e) => setEquipmentName(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Quantity Stored: 
+                            <input style={inputStyle} type="text" value={storedQuantity} onChange={(e) => setStoredQuantity(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Quantity Distributed: 
+                            <input style={inputStyle} type="text" value={distQuantity} onChange={(e) => setDistQuantity(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Last Ordered Date: 
+                            <input style={inputStyle} type="date" value={lastOrdered} onChange={(e) => setLastOrdered(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Last Distributed Date: 
+                            <input style={inputStyle} type="date" value={lastDistributed} onChange={(e) => setLastDistributed(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Name: 
+                            <input style={inputStyle} type="text" name="brandName" onChange={(e) => handleNameChange(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 6s: 
+                            <input style={inputStyle} type="number" name="q_6" onChange={(e) => handleQ6Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 6.5s: 
+                            <input style={inputStyle} type="number" name="q_6_5" onChange={(e) => handleQ65Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 7s: 
+                            <input style={inputStyle} type="number" name="q_7" onChange={(e) => handleQ7Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 7.5s: 
+                            <input style={inputStyle} type="number" name="q_7_5" onChange={(e) => handleQ75Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 8s: 
+                            <input style={inputStyle} type="number" name="q_8" onChange={(e) => handleQ8Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 8.5s: 
+                            <input style={inputStyle} type="number" name="q_8_5" onChange={(e) => handleQ85Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 9s: 
+                            <input style={inputStyle} type="number" name="q_9" onChange={(e) => handleQ9Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 9.5s: 
+                            <input style={inputStyle} type="number" name="q_9_5" onChange={(e) => handleQ95Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 10s: 
+                            <input style={inputStyle} type="number" name="q_10" onChange={(e) => handleQ10Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 10.5s: 
+                            <input style={inputStyle} type="number" name="q_10_5" onChange={(e) => handleQ105Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 11s: 
+                            <input style={inputStyle} type="number" name="q_11" onChange={(e) => handleQ11Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 11.5s: 
+                            <input style={inputStyle} type="number" name="q_11_5" onChange={(e) => handleQ115Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 12s: 
+                            <input style={inputStyle} type="number" name="q_12" onChange={(e) => handleQ12Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 12.5s: 
+                            <input style={inputStyle} type="number" name="q_12_5" onChange={(e) => handleQ125Change(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Size 13s: 
+                            <input style={inputStyle} type="number" name="q_13" onChange={(e) => handleQ13Change(e)} required/>
+                        </label>
+                        </div>
+                    }
+                    {equipmentType === 4 && 
+                        <div style={formGroupStyle}>
+                        <label>
+                            Equipment Name: 
+                            <input style={inputStyle} type="text" value={equipmentName} onChange={(e) => setEquipmentName(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Quantity Stored: 
+                            <input style={inputStyle} type="text" value={storedQuantity} onChange={(e) => setStoredQuantity(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Quantity Distributed: 
+                            <input style={inputStyle} type="text" value={distQuantity} onChange={(e) => setDistQuantity(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Last Ordered Date: 
+                            <input style={inputStyle} type="date" value={lastOrdered} onChange={(e) => setLastOrdered(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Last Distributed Date: 
+                            <input style={inputStyle} type="date" value={lastDistributed} onChange={(e) => setLastDistributed(e.target.value)} required/>
+                        </label>
+                        <label>
+                            Quantity of Small Jerseys: 
+                            <input style={inputStyle} type="number" name="smallJerseys" onChange={(e) => handleSmallJerseyChange(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Medium Jerseys: 
+                            <input style={inputStyle} type="number" name="mediumJerseys" onChange={(e) => handleMediumJerseyChange(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of Large Jerseys: 
+                            <input style={inputStyle} type="number" name="largeJerseys" onChange={(e) => handleLargeJerseyChange(e)} required/>
+                        </label>
+                        <label>
+                            Quantity of X-Large Jerseys: 
+                            <input style={inputStyle} type="number" name="xLJerseys" onChange={(e) => handleXLJerseyChange(e)} required/>
+                        </label>
+                        <label>
+                            Color of Jerseys: 
+                            <input style={inputStyle} type="text" name="color" onChange={(e) => handleJerseyColorChange(e)} required/>
+                        </label>
+                        </div>
                     }
                 </div>
             )}
