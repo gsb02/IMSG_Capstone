@@ -2,34 +2,44 @@ import React, {useEffect, useState} from "react"
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './teams.css'
+import Modal from './Modal.jsx';
+
 const Teams = () => {
     const [teams, setTeams] = useState([]);
-    
+    const [showModal, setShowModal] = useState(false);
+    const [deleteTeamID, setDeleteTeamID] = useState(null); // To store the ID of the team being deleted
+
     useEffect(() => {
         const fetchTeams = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/teams');
                 setTeams(response.data);
-                console.log(response.data);
             } catch (error) {
                 console.error('There was an error fetching the teams:', error);
-                console.log(error.toJSON());
             }
         };
 
         fetchTeams();
     }, []);
 
-    const handleDelete = async (teamID) => {
+    const initiateDelete = (teamID) => {
+        setShowModal(true);
+        setDeleteTeamID(teamID); // Set the ID of the team to be deleted
+    };
+
+    const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3000/teams/${teamID}`);
-            console.log(teamID);
-            setTeams(teams.filter(team => teams.teamID !== teamID));
-            window.location.reload();
+            await axios.delete(`http://localhost:3000/teams/${deleteTeamID}`);
+            setTeams(teams.filter(team => team.teamID !== deleteTeamID));
+            setShowModal(false); // Close the modal after deletion
         } catch (error) {
             console.error('There was an error deleting the team:', error);
         }
     };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    }
 
     return (
         <div className="table-container">
@@ -39,33 +49,38 @@ const Teams = () => {
                     <button className="add-team">Add Team</button>
                 </Link>
             </div>
-            <div>
-                <table className="table">
-                    <thead>
-                    <tr>
-                        <th scope = "col">Team Name</th>
-                        <th scope = "col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {teams.map((team, index) => (
-                            <tr key={team.teamID}>
-                                <td>{team.teamName}</td>
-                                <td>
-                                    <Link to="/addPlayer" state={{ teamID: team.teamID, teamName: team.teamName }}>
-                                        <button>Add Player</button>
-                                    </Link>
-                                    <Link to="/players" state={{ teamID: team.teamID, teamName: team.teamName }}>
-                                        <button>View Roster</button>
-                                    </Link>
-                                    <button>Edit</button>
-                                    <button onClick={() => handleDelete(team.teamID)}>Delete</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+            <table className="table">
+                <thead>
+                <tr>
+                    <th scope = "col">Team Name</th>
+                    <th scope = "col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {teams.map((team) => (
+                        <tr key={team.teamID}>
+                            <td>{team.teamName}</td>
+                            <td>
+                                <Link to="/addPlayer" state={{ teamID: team.teamID, teamName: team.teamName }}>
+                                    <button>Add Player</button>
+                                </Link>
+                                <Link to="/players" state={{ teamID: team.teamID, teamName: team.teamName }}>
+                                    <button>View Roster</button>
+                                </Link>
+                                <button>Edit</button>
+                                <button onClick={() => initiateDelete(team.teamID)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <Modal
+                isOpen={showModal}
+                onClose={handleCloseModal}
+                onConfirm={handleDelete}
+            >
+                <p>Are you sure you want to delete this team?</p>
+            </Modal>
         </div>
     );
 };
