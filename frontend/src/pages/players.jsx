@@ -45,6 +45,7 @@ const Players = () => {
             setPlayers(players.filter(player => player.playerID !== deletePlayerId));
             setShowModal(false);
             setDeletePlayerId(null);
+            window.location.reload();
           } catch (error) {
             console.error('There was an error deleting the player:', error);
           }

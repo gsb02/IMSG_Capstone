@@ -95,7 +95,7 @@ const AssignEquiptoPlayers = () => {
                 <ul>
                     {assignedEquipment.map((equip, index) => (
                         <li key={index}>
-                            {equip.equipmentName} - {equip.quantity} - {equip.equipmentID}
+                            {equip.equipmentName} - {equip.quantity}
                             <input
                                 type="number"
                                 value={removeInputQuantities[equip.equipmentID] || ""}
