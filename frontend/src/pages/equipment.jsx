@@ -77,7 +77,7 @@ const Equipment = () => {
             <h1 style={{textAlign: "center"}}>Equipment List</h1>
 
             <div style={{display: 'flex', justifyContent: 'left', marginBottom: '20px'}}>
-            <button onClick={handleClick}className="add-equip">Add Equip</button>
+            <button onClick={handleClick}className="add-equip">Add Equipment</button>
             <button onClick={handleAssigntoTeam}className="assign-equip">Assign Equipment to Team</button>
             </div>
             <table className="table">

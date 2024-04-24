@@ -1,13 +1,52 @@
-.addEquip {
-    h1 {
-        font-size: 40px;
-    }
-    #input {
-        width: 200px;
-        height: 20px;
-        border-style: groove;
-        border-width: 3px;
-        border-color: royalblue;
-        margin: 10px;
-    }
+.combinedContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Adopts full height from .addEquip */
+    width: 100%; /* Ensures full-width as specified in .container */
+    margin-top: 40px; /* Top margin from .container */
+    position: relative; /* As per .container */
+    overflow: hidden; /* To handle any overflowing content */
 }
+
+.combinedContainer h1 {
+    font-size: 40px; /* Heading style from .addEquip */
+}
+
+.combinedContainer #input {
+    width: 200px;
+    height: 20px;
+    border-style: groove;
+    border-width: 3px;
+    border-color: royalblue;
+    margin: 10px; /* Input styling from .addEquip */
+}
+
+.backButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s ease;
+    text-decoration: underline;
+    align-self: flex-start; /* Alignment from .addEquip */
+}
+
+.backButton:hover {
+    color: #3498db; /* Hover effect for button */
+}
+
+.submitButton { 
+    background-color: #3498db;
+    color: white;
+    width: 100px;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .submitButton:hover{
+    background-color: #5cb1f9;
+  }

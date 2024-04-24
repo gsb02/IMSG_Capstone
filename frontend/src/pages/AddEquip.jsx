@@ -22,6 +22,7 @@ const AddEquip = () => {
     const [sports, setSports] = useState([]);
     const [attributes, setAttributes1] = useState({});
     const [jerseyNumbers, setJerseyNumbers] = useState({});
+    const [isHovering, setIsHovering] = useState(false);
 
     // The attributes, being subtables, are created as empty tables, then handled down below as inputs are entered.
 
@@ -361,7 +362,8 @@ const AddEquip = () => {
 
     // The output to the webpage
     return (
-        <div className='addEquip'>
+        <div className='combinedContainer'>
+            <button onClick={handleBackClick} className={`backButton ${isHovering ? 'hover' : ''}`} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>Back</button>
             <h1 style={containerStyle}>Add New Equipment</h1>
                 <label>
                     Equipment:
@@ -585,8 +587,7 @@ const AddEquip = () => {
                     }
                 </div>
             )}
-            <button onClick={handleSubmit}>Add</button>
-            <button onClick={handleBackClick}>Back</button>
+            <button className="submitButton" onClick={handleSubmit}>Add Equipment</button>
         </div>
     )
 }
