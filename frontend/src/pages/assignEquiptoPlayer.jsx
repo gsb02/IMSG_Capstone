@@ -11,7 +11,11 @@ const AssignEquiptoPlayers = () => {
     const [assignedEquipment, setAssignedEquipment] = useState([]);
     const [assignInputQuantities, setAssignInputQuantities] = useState({});
     const [removeInputQuantities, setRemoveInputQuantities] = useState({});
+    const [isHovering, setIsHovering] = useState(false);
 
+    const handleBackClick = () => {
+        navigate(-1); // Navigates to the previous page
+    };
 
     useEffect(() => {
         fetchAllEquipment();
@@ -88,7 +92,8 @@ const AssignEquiptoPlayers = () => {
     };
 
     return (
-        <div>
+        <div className="container">
+            <button onClick={handleBackClick} className={`backButton ${isHovering ? 'hover' : ''}`} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>Back</button>
             <h2>Assign Equipment to {playerName}</h2>
             <div>
                 <h3>Assigned Equipment</h3>
